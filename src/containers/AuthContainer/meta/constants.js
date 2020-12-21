@@ -1,1 +1,0 @@
-export const AUTH_DEFAULT = 'AUTH_DEFAULT';

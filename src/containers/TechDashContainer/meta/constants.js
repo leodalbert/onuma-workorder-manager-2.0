@@ -1,1 +1,0 @@
-export const TECHDASH_DEFAULT = 'TECHDASH_DEFAULT';

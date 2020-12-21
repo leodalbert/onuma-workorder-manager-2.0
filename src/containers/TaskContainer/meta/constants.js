@@ -1,1 +1,0 @@
-export const TASK_DEFAULT = 'TASK_DEFAULT';

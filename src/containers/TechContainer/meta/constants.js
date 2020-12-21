@@ -1,1 +1,0 @@
-export const TECH_DEFAULT = 'TECH_DEFAULT';
