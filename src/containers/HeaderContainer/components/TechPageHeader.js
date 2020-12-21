@@ -43,15 +43,12 @@ const TechPageHeader = ({
   studio = 26,
   token = 'test',
   name = 'leo',
-  dialogHeader,
-  text,
-  isMobile,
   email = 'lm@onuma.com',
 }) => {
   const classes = useStyles();
-  //   const isWorkorder = !(
-  //     useLocation().pathname.split('/').slice(-2)[0] === 'technicians'
-  //   );
+  const isWorkorder = !(
+    useLocation().pathname.split('/').slice(-2)[0] === 'technicians'
+  );
   const openInPopup = () => {
     const newWindow = window.open(
       `https://system.onuma.com/${studio}/get-in-touch?url=${encodeURIComponent(
@@ -60,7 +57,6 @@ const TechPageHeader = ({
       'window',
       'toolbar=no, menubar=no, resizable=no, width=400,height=500, top=300, left=300'
     );
-    if (newWindow) newWindow.opener = null;
   };
   return (
     <div data-testid='tech-header'>
@@ -68,9 +64,9 @@ const TechPageHeader = ({
         <Toolbar classes={{ root: classes.navbarContainer }}>
           <div className={classes.navbarTitleContainer}>
             <img src={logo} alt='logo' className={classes.navbarLogo} />
-            {
-              //isWorkorder && !dialogHeader && (
+            {isWorkorder && (
               <IconButton
+                data-testid='menu-button'
                 color='inherit'
                 component={Link}
                 to={`${process.env.PUBLIC_URL}/${studio}/technicians/${
@@ -78,45 +74,25 @@ const TechPageHeader = ({
                 }`}>
                 <FormatListBulletedRoundedIcon style={{ fontSize: 40 }} />
               </IconButton>
-              //    )
-            }
+            )}
             <Typography
-              style={
-                dialogHeader
-                  ? { fontSize: '16px' }
-                  : { textDecoration: 'inherit' }
-              }
-              component={dialogHeader ? 'h6' : Link}
+              style={{ textDecoration: 'inherit' }}
+              component={Link}
               to={`${process.env.PUBLIC_URL}/${studio}/technicians/${
                 email && email
               }`}
               variant='h6'
               className={classes.navbarTitle}>
-              {dialogHeader && text} {!dialogHeader && name && name}
+              {name && name}
             </Typography>
           </div>
-          {
-            //dialogHeader &&
-            // (isMobile ? (
-            //   <Button onClick={handleClose} color='inherit'>
-            //     <CloseIcon />
-            //   </Button>
-            // ) : (
-            //   <Button onClick={handleClose} color='inherit'>
-            //     Close <CloseIcon />
-            //   </Button>
-            // ))
-          }
-
-          {!dialogHeader && (
-            <IconButton
-              onClick={() => {
-                openInPopup();
-              }}
-              color='inherit'>
-              <HelpIcon />
-            </IconButton>
-          )}
+          <IconButton
+            onClick={() => {
+              openInPopup();
+            }}
+            color='inherit'>
+            <HelpIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
@@ -126,16 +102,8 @@ const TechPageHeader = ({
 TechPageHeader.propTypes = {
   // email: PropTypes.string.isRequired,
   // name: PropTypes.string.isRequired,
-  text: PropTypes.array.isRequired,
-  dialogHeader: PropTypes.bool.isRequired,
   handleClose: PropTypes.func,
   token: PropTypes.string,
-};
-
-TechPageHeader.defaultProps = {
-  text: ['Assignments'],
-  dialogHeader: false,
-  isMobile: false,
 };
 
 export default TechPageHeader;
