@@ -1,0 +1,1 @@
+export const HEADER_DEFAULT = 'HEADER_DEFAULT';
