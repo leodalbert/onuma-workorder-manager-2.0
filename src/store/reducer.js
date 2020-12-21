@@ -8,6 +8,7 @@ import task from 'containers/TaskContainer/meta/reducer';
 import tech from 'containers/TechContainer/meta/reducer';
 import techDash from 'containers/TechDashContainer/meta/reducer';
 import workOrder from 'containers/WorkOrderContainer/meta/reducer';
+import navigation from 'containers/NavigationContainer/meta/reducer';
 
 export default combineReducers({
   auth,
@@ -19,4 +20,5 @@ export default combineReducers({
   tech,
   techDash,
   workOrder,
+  navigation,
 });

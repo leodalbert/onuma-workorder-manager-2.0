@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { Fragment, lazy, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-function Navigation() {
-    return <div />;
-}
+import Spinner from 'components/Common/Spinner';
+import TechDash from 'containers/TechDashContainer';
+import Header from 'containers/HeaderContainer';
+
+const Navigation = () => {
+  return (
+    <Fragment>
+      <section>
+        <Header />
+        <Switch>
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/:studioId/technicians/:techEmail`}
+            component={TechDash}
+          />
+        </Switch>
+      </section>
+    </Fragment>
+  );
+};
 
 export default Navigation;

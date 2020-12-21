@@ -1,0 +1,15 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.MuiAccordionSummary-root.Mui-expanded {
+  min-height: 48px !important;
+}
