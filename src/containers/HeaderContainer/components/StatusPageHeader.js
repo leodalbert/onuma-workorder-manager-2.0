@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StatusPageHeader = () => {
-  return <div>Status Page Header</div>;
+  return <div data-testid='status-header'>Status Page Header</div>;
 };
 
 export default StatusPageHeader;

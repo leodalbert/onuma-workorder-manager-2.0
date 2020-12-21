@@ -63,7 +63,7 @@ const TechPageHeader = ({
     if (newWindow) newWindow.opener = null;
   };
   return (
-    <div>
+    <div data-testid='tech-header'>
       <AppBar position='static'>
         <Toolbar classes={{ root: classes.navbarContainer }}>
           <div className={classes.navbarTitleContainer}>

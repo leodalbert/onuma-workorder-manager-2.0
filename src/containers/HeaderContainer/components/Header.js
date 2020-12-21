@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import StatusPageHeader from './StatusPageHeader';
 import TechPageHeader from './TechPageHeader';
 
-function Header({ text }) {
+const Header = ({ text }) => {
   return (
     <Switch>
       <Route
@@ -17,6 +17,6 @@ function Header({ text }) {
       />
     </Switch>
   );
-}
+};
 
 export default Header;
