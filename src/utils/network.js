@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { BASE_URL } from './environment';
 
-axios.interceptors.response.use((response) => response.data.data);
-// axios.defaults.headers.common = {
-//   Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
-// };
+axios.interceptors.response.use((response) => response.data);
+axios.defaults.headers.common = {
+  Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
+};
 
 const network = () => {
   const baseUrl = BASE_URL;
@@ -33,8 +33,9 @@ const network = () => {
   // Get tech by Email
   const getCurrentTech = (techEmail, studioId) => {
     const config = { headers };
+    console.log(BASE_URL);
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/technician?fields=*,*.*&filter[email]=${techEmail}`,
+      `${baseUrl}${studioId}/api/items/technician?fields=*,*.*&filter[email]=${techEmail}`,
       config
     );
   };

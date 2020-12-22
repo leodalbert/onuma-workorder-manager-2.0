@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  IconButton,
-  Typography,
-  Toolbar,
-  AppBar,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { IconButton, Typography, Toolbar, AppBar } from '@material-ui/core';
 import FormatListBulletedRoundedIcon from '@material-ui/icons/FormatListBulletedRounded';
 
 import HelpIcon from 'assets/HelpIcon';
@@ -50,7 +43,7 @@ const TechPageHeader = ({
     useLocation().pathname.split('/').slice(-2)[0] === 'technicians'
   );
   const openInPopup = () => {
-    const newWindow = window.open(
+    window.open(
       `https://system.onuma.com/${studio}/get-in-touch?url=${encodeURIComponent(
         window.location.href
       )}/${token}`,

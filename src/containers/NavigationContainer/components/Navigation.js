@@ -1,7 +1,7 @@
-import React, { Fragment, lazy, Suspense } from 'react';
+import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Spinner from 'components/Common/Spinner';
+// import Spinner from 'components/Common/Spinner';
 import TechDash from 'containers/TechDashContainer';
 import Header from 'containers/HeaderContainer';
 

@@ -4,6 +4,7 @@ import components from './components';
 import task from './task';
 import tech from './tech';
 import workOrder from './workOrder';
+import urlParams from './urlParams';
 
 export default combineReducers({
   auth,
@@ -11,4 +12,5 @@ export default combineReducers({
   task,
   tech,
   workOrder,
+  urlParams,
 });

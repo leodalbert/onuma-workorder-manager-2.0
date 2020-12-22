@@ -1,22 +1,15 @@
 import React from 'react';
-import network from 'utils/network';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+import Navigation from 'containers/NavigationContainer';
 
 //  Material Ui
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './meta/theme';
 import './meta/App.css';
 
-import Navigation from 'containers/NavigationContainer';
-
-// const t = async () => {
-//   const res = await network.workOrderStatusChange(1005, 'Work In Progress', 26);
-//   console.log(res);
-// };
-// network.deleteAttachment();
-const App = (props) => {
-  // t();
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -26,6 +19,8 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {};
+App.propTypes = {
+  studio: PropTypes.string,
+};
 
 export default App;

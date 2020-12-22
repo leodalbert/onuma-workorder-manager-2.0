@@ -1,14 +1,14 @@
-import React from 'react';
+// import React from 'react';
 import { connect } from 'react-redux';
 import Navigation from './components/Navigation';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
 const NavigationContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(Navigation);
 
 export default NavigationContainer;

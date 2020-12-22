@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useEffect, memo } from 'react';
+import PropTypes from 'prop-types';
 
-function TechDash() {
-  return <div>tech Dash</div>;
-}
+const TechDash = ({ setUrlParams, getCurrentTech, match: { params } }) => {
+  // set url params to state
+  useEffect(() => {
+    console.count('setparams');
+    setUrlParams({ ...params });
+  }, [params, setUrlParams]);
 
-export default TechDash;
+  // API request to get current tech
+  useEffect(() => {
+    getCurrentTech(params.techEmail, params.studioId);
+  }, [params.techEmail, getCurrentTech, params.studioId]);
+
+  return (
+    <div>
+      {console.count('test')}
+      test
+    </div>
+  );
+};
+
+TechDash.propTypes = {
+  setUrlParams: PropTypes.func.isRequired,
+  getCurrentTech: PropTypes.func.isRequired,
+  techEmail: PropTypes.string,
+  match: PropTypes.object.isRequired,
+};
+
+export default memo(TechDash);
