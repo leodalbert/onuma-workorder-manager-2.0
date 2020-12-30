@@ -2,14 +2,34 @@ import axios from 'axios';
 import { BASE_URL } from './environment';
 
 axios.interceptors.response.use((response) => response.data);
-axios.defaults.headers.common = {
-  Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
-};
+// axios.defaults.headers.common = {
+//   Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
+// };
 
 const network = () => {
   const baseUrl = BASE_URL;
   const headers = {
-    Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
+    // Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
+  };
+
+  // Start Cookie Session
+  const startSession = (token, email, studioId) => {
+    const uninterceptedAxiosInstance = axios.create();
+    return uninterceptedAxiosInstance.get(
+      `${baseUrl}/${studioId}/actions/start-technician-session?token=${token}&email=${email}`
+    );
+  };
+
+  // Refresh session cookie
+  const refreshSession = (studioId, techEmail, token) => {
+    return axios.get(
+      `/${studioId}/actions/start-technician-session?token=${token}&email=${techEmail}&resume=1`
+    );
+  };
+
+  // Expire session cookie
+  const logout = () => {
+    return axios.get(`https://system.onuma.com/user/logout`);
   };
 
   // Get all work orders by tech Id
@@ -33,9 +53,8 @@ const network = () => {
   // Get tech by Email
   const getCurrentTech = (techEmail, studioId) => {
     const config = { headers };
-    console.log(BASE_URL);
     return axios.get(
-      `${baseUrl}${studioId}/api/items/technician?fields=*,*.*&filter[email]=${techEmail}`,
+      `${baseUrl}/${studioId}/api/items/technician?fields=*,*.*&filter[email]=${techEmail}`,
       config
     );
   };
@@ -310,6 +329,9 @@ const network = () => {
     );
   };
   return {
+    startSession,
+    refreshSession,
+    logout,
     getAllWorkordersByTech,
     getAllTechs,
     getCurrentTech,

@@ -3,7 +3,7 @@ import auth from './auth';
 import components from './components';
 import task from './task';
 import tech from './tech';
-import workOrder from './workOrder';
+import workorder from './workOrder';
 import urlParams from './urlParams';
 
 export default combineReducers({
@@ -11,6 +11,6 @@ export default combineReducers({
   components,
   task,
   tech,
-  workOrder,
+  workorder,
   urlParams,
 });

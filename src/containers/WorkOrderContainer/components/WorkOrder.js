@@ -1,7 +1,8 @@
 import React from 'react';
 
 function WorkOrder() {
-    return <div />;
+  console.count('workorder');
+  return <div>workorder</div>;
 }
 
 export default WorkOrder;
