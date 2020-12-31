@@ -1,4 +1,5 @@
 import network from 'utils/network';
+import { getSpaceComponents } from 'actions/component';
 import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
@@ -20,7 +21,7 @@ export const getFloorId = (buildingId, studioId) => async (dispatch) => {
   }
 };
 
-// Get Work order by work order Id
+// Get technician page Work order by work order Id
 export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
   try {
     const res = await network.getWorkorderById(workorderId, studioId);
@@ -34,6 +35,8 @@ export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
     if (workorder.space) {
       buildingInfo.spaceId = workorder.space.id;
       buildingInfo.spaceName = workorder.space.name;
+      // get space components if there is a spaceId
+      dispatch(getSpaceComponents(workorder.space.id, studioId));
     }
     if (workorder.floor) {
       buildingInfo.floorId = workorder.floor.id;

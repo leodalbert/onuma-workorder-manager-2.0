@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Container, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { logout, sessionLogin, sessionResume } from 'actions/auth';
+import { logout, sessionLogin, sessionResume, setToken } from 'actions/auth';
 import { getCurrentTech } from 'actions/tech';
 import {
   selectAuthToken,
@@ -22,7 +23,6 @@ export const PrivateRoute = ({
   isAuth,
   authLoading,
   redirect,
-  history,
   sessionLogin,
   sessionResume,
   login,
@@ -30,11 +30,13 @@ export const PrivateRoute = ({
   sessionLoginRequester,
   techEmail,
   getCurrentTech,
+  setToken,
   location: { pathname },
-  computedMatch: { params },
+  computedMatch: { params, url },
   component: Component,
   ...rest
 }) => {
+  const history = useHistory();
   useEffect(() => {
     if (params.requesterEmail) {
       if (Cookies.get('onumaLocal')) {
@@ -103,6 +105,17 @@ export const PrivateRoute = ({
     authLoading,
   ]);
 
+  // set tech token in state and remove token from url
+  useEffect(() => {
+    if (params.token && isAuth) {
+      console.log('go');
+      setToken(params.token);
+      const location = url.split('/');
+      location.pop();
+      history.push(location.join('/'));
+    }
+  }, [isAuth, setToken, params.token, url, history]);
+
   // refresh token every 30 min
   useInterval(() => {
     console.log('useInterval');
@@ -130,7 +143,7 @@ export const PrivateRoute = ({
           <div>
             <Component {...props} />
           </div>
-        ) : authLoading || !techEmail ? (
+        ) : authLoading || !techEmail || params.token ? (
           <Spinner />
         ) : (
           <Container style={{ marginTop: '20px', textAlign: 'center' }}>
@@ -163,4 +176,5 @@ export default connect(mapStateToProps, {
   sessionLogin,
   sessionResume,
   getCurrentTech,
+  setToken,
 })(PrivateRoute);
