@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Navigation from 'containers/NavigationContainer';
@@ -17,10 +16,6 @@ const App = () => {
       </Router>
     </ThemeProvider>
   );
-};
-
-App.propTypes = {
-  studio: PropTypes.string,
 };
 
 export default App;

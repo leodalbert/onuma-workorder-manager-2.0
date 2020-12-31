@@ -18,6 +18,8 @@ const WorkOrder = ({
   getWorkOrderById,
   history,
   workorderId,
+  spaceId,
+  getSpaceComponents,
 }) => {
   // set tech token in state and remove token from url
   useEffect(() => {
@@ -27,12 +29,17 @@ const WorkOrder = ({
       location.pop();
       history.push(location.join('/'));
     }
-  }, [setToken, params.token, url]);
+  }, [setToken, params.token, url, history]);
 
   // get workorder from api
   useEffect(() => {
     !workorderId && getWorkOrderById(params.id, params.studioId);
   }, [workorderId, getWorkOrderById, params.id, params.studioId]);
+
+  // get space components once spaceId is availible
+  useEffect(() => {
+    spaceId && getSpaceComponents(spaceId, params.studioId);
+  }, [spaceId, getSpaceComponents, params.studioId]);
 
   return (
     <div>
@@ -41,6 +48,13 @@ const WorkOrder = ({
   );
 };
 
-WorkOrder.propTypes = {};
+WorkOrder.propTypes = {
+  match: PropTypes.object.isRequired,
+  setToken: PropTypes.func.isRequired,
+  getWorkOrderById: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  workorderId: PropTypes.number,
+  spaceId: PropTypes.number,
+};
 
 export default WorkOrder;
