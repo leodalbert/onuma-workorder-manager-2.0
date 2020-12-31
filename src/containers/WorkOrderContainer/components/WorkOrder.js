@@ -41,6 +41,7 @@ const WorkOrder = ({
     spaceId && getSpaceComponents(spaceId, params.studioId);
   }, [spaceId, getSpaceComponents, params.studioId]);
 
+  // console.count('workorder');
   return (
     <div>
       <div>workorder</div>

@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { CURRENT_TECH } from 'actions/types';
+import { CURRENT_TECH, GET_TECHS } from 'actions/types';
 
 export const initialState = {
   techs: [],
@@ -21,6 +21,9 @@ const Tech = (state = initialState, action) =>
         draft.siteGroup = Number(payload.site_group.id);
         draft.id = Number(payload.id);
         draft.token = payload.token;
+        break;
+      case GET_TECHS:
+        draft.techs = payload;
         break;
       default:
         break;

@@ -1,7 +1,7 @@
-import { CURRENT_TECH, LOGIN_FAIL } from './types';
+import { CURRENT_TECH, LOGIN_FAIL, GET_TECHS } from './types';
 import network from 'utils/network';
 
-// get current tech by Email
+// get current tech by tech Email
 export const getCurrentTech = (techEmail, studio) => async (dispatch) => {
   try {
     const res = await network.getCurrentTech(techEmail, studio);
@@ -11,9 +11,20 @@ export const getCurrentTech = (techEmail, studio) => async (dispatch) => {
       let payload;
       if (res.data) {
         payload = res.data[0];
+        dispatch(getAllTechs(studio, res.data[0].site_group.id));
         dispatch({ type: CURRENT_TECH, payload });
       }
     }
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+//  get all techs in site_group
+export const getAllTechs = (studioId, siteGroup) => async (dispatch) => {
+  try {
+    const res = await network.getAllTechs(studioId, siteGroup);
+    dispatch({ type: GET_TECHS, payload: res.data });
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });
   }

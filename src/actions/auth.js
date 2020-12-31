@@ -41,7 +41,7 @@ export const sessionLogin = (
 ) => async (dispatch) => {
   dispatch({ type: AUTH_LOADING });
   try {
-    // get current tech if tech workorder
+    // get current tech and all techs in siteGroup if tech workorder
     if (isTech) {
       dispatch(getCurrentTech(email, studioId));
     }
