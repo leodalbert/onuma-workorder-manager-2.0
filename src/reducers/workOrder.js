@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { GET_WORKORDER_TECH } from 'actions/types';
+import { GET_WORKORDER, GET_WORKORDER_FILES } from 'actions/types';
 
 export const initialState = {
   id: undefined,
@@ -19,7 +19,6 @@ export const initialState = {
   request_email_cc: '',
   files: [],
   loading: true,
-  error: {},
 };
 
 /* eslint-disable no-param-reassign */
@@ -27,9 +26,15 @@ const WorkOrder = (state = initialState, action) =>
   produce(state, (draft) => {
     const { type, payload } = action;
     switch (type) {
-      case GET_WORKORDER_TECH:
-        draft.assigned_technician.email = payload.assigned_technician.email;
-        draft.collaborators = payload.collaborators;
+      case GET_WORKORDER:
+        return {
+          ...state,
+          ...payload,
+          maintenance_procedures: payload.maintenance_procedures || [],
+          loading: false,
+        };
+      case GET_WORKORDER_FILES:
+        draft.files = payload;
         break;
       default:
         break;

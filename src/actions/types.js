@@ -1,4 +1,5 @@
 export const CURRENT_TECH = 'CURRENT_TECH';
+export const GET_WORKORDER = 'GET_WORKORDER';
 export const URL_PARAMS = 'URL_PARAMS';
 export const ERROR = 'ERROR';
 export const AUTH_LOADING = 'AUTH_LOADING';
@@ -6,5 +7,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
-export const GET_WORKORDER_TECH = 'GET_WORKORDER_TECH';
 export const REDIRECT = 'REDIRECT';
+export const SET_SPACE_INFO = 'SET_SPACE_INFO';
+export const SET_SPACE_FLOOR_ID = 'SET_SPACE_FLOOR_ID';
+export const GET_WORKORDER_FILES = 'GET_WORKORDER_FILES';

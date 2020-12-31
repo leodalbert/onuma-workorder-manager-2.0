@@ -7,6 +7,8 @@ import { createSelector } from 'reselect';
  */
 export const selectWorkorder = (state) => state.workorder || initialState;
 
+export const selectWorkorderId = (state) => selectWorkorder(state).id;
+
 export const selectWorkorderTech = (state) =>
   selectWorkorder(state).assigned_technician.email;
 

@@ -1,15 +1,12 @@
 // import React from 'react';
 import { connect } from 'react-redux';
 import TechDash from './components/TechDash';
-import { setUrlParams } from 'actions/urlParams';
-import { getCurrentTech } from 'actions/tech';
-// import { selectTechEmail, selectStudio } from 'Selectors/urlParams';
+// import { getCurrentTech } from 'actions/tech';
 
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-  setUrlParams,
-  getCurrentTech,
+  // getCurrentTech,
 };
 
 const TechDashContainer = connect(

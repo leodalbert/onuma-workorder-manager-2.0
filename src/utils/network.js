@@ -2,9 +2,9 @@ import axios from 'axios';
 import { BASE_URL } from './environment';
 
 axios.interceptors.response.use((response) => response.data);
-// axios.defaults.headers.common = {
-//   Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
-// };
+axios.defaults.headers.common = {
+  Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
+};
 
 const network = () => {
   const baseUrl = BASE_URL;
@@ -36,7 +36,7 @@ const network = () => {
   const getAllWorkordersByTech = (studioId, techId) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/workorder?fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status,collaborators.collaborator&filter[collaborators.collaborator][in]=${techId}&filter[assigned_technician.id][in]=${techId}&filter[assigned_technician.id][logical]=or`,
+      `${baseUrl}/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status,collaborators.collaborator&filter[collaborators.collaborator][in]=${techId}&filter[assigned_technician.id][in]=${techId}&filter[assigned_technician.id][logical]=or`,
       config
     );
   };
@@ -45,7 +45,7 @@ const network = () => {
   const getAllTechs = (studioId, siteGroup) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/technician?filter[site_group.id]=${siteGroup}&fields=id,first_name,last_name,email`,
+      `${baseUrl}/${studioId}/api/items/technician?limit=9999&filter[site_group.id]=${siteGroup}&fields=id,first_name,last_name,email`,
       config
     );
   };
@@ -72,7 +72,7 @@ const network = () => {
   const getWorkorderById = (workorderId, studioId) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/workorder/${workorderId}?fields=*,*.*&fields=id,status,token,request_number,building.id,building.site,building.number,building.name,floor.name,floor.id,floor.number,space.id,space.number,space.name,submitted_by,request_email,assigned_priority,request_date,request_description,components.component,components.id,tasks.*,assigned_technician.id,assigned_technician.first_name,assigned_technician.last_name,assigned_technician.email,location_description,request_telephone,due_date,administrator_to_technician_comment,administrator_comment,collaborators.collaborator,collaborators.id,assigned_trade,collaborators.collaborator.email,collaborators.collaborator.id,request_email_cc,preventive_maintenance,maintenance_procedures`,
+      `${baseUrl}/${studioId}/api/items/workorder/${workorderId}?fields=*,*.*,id,status,token,request_number,building.id,building.site,building.number,building.name,floor.name,floor.id,floor.number,space.id,space.number,space.name,submitted_by,request_email,assigned_priority,request_date,request_description,components.component,components.id,tasks.*,assigned_technician.id,assigned_technician.first_name,assigned_technician.last_name,assigned_technician.email,location_description,request_telephone,due_date,administrator_to_technician_comment,administrator_comment,collaborators.collaborator,collaborators.id,assigned_trade,collaborators.collaborator.email,collaborators.collaborator.id,request_email_cc,preventive_maintenance,maintenance_procedures`,
       config
     );
   };
@@ -284,7 +284,7 @@ const network = () => {
   const searchComponents = (searchParam, buildingId, studioId) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/space_component?fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.name][contains]=${searchParam}&filter[component.component_type][contains]=${searchParam}&filter[component.component_type][logical]=or&filter[component.barcode][contains]=${searchParam}&filter[component.barcode][logical]=or&filter[component.serial_number][contains]=${searchParam}&filter[component.serial_number][logical]=or&filter[component.instance_name][contains]=${searchParam}&filter[component.instance_name][logical]=or`,
+      `${baseUrl}/${studioId}/api/items/space_component?limit=9999&fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.name][contains]=${searchParam}&filter[component.component_type][contains]=${searchParam}&filter[component.component_type][logical]=or&filter[component.barcode][contains]=${searchParam}&filter[component.barcode][logical]=or&filter[component.serial_number][contains]=${searchParam}&filter[component.serial_number][logical]=or&filter[component.instance_name][contains]=${searchParam}&filter[component.instance_name][logical]=or`,
       config
     );
   };
@@ -293,7 +293,7 @@ const network = () => {
   const getAllSpaces = (siteId, studioId) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/building?filter[site]=${siteId}&fields=name,id,number,floors.name,floors.id,floors.number,floors.spaces.name,floors.spaces.id,floors.spaces.number`,
+      `${baseUrl}/${studioId}/api/items/building?limit=9999&filter[site]=${siteId}&fields=name,id,number,floors.name,floors.id,floors.number,floors.spaces.name,floors.spaces.id,floors.spaces.number`,
       config
     );
   };

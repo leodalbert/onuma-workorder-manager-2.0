@@ -4,12 +4,14 @@ import { Container, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { logout, sessionLogin, sessionResume } from 'actions/auth';
+import { getCurrentTech } from 'actions/tech';
 import {
   selectAuthToken,
   selectAuthLoading,
   selectIsAuth,
   selectAuthRedirect,
 } from 'Selectors/auth';
+import { selectTechEmail } from 'Selectors/tech';
 import useInterval from 'hooks/useInterval';
 import Spinner from 'components/Common/Spinner';
 
@@ -26,6 +28,8 @@ export const PrivateRoute = ({
   login,
   logout,
   sessionLoginRequester,
+  techEmail,
+  getCurrentTech,
   location: { pathname },
   computedMatch: { params },
   component: Component,
@@ -43,7 +47,8 @@ export const PrivateRoute = ({
             params.studioId,
             params.requesterEmail,
             params.token,
-            params.id
+            params.id,
+            false
           );
         } else if (cookie && cookie.email === params.requesterEmail) {
           console.log('start requester session from cookie token');
@@ -51,7 +56,8 @@ export const PrivateRoute = ({
             params.studioId,
             params.requesterEmail,
             cookie.token,
-            params.id
+            params.id,
+            false
           );
         } else {
           console.log('logout');
@@ -61,7 +67,6 @@ export const PrivateRoute = ({
     } else {
       if (Cookies.get('onumaLocal')) {
         cookie = JSON.parse(atob(Cookies.get('onumaLocal')));
-        console.log(cookie);
       }
       if (!isAuth && authLoading) {
         if (params.token) {
@@ -70,7 +75,8 @@ export const PrivateRoute = ({
             params.studioId,
             params.techEmail,
             params.token,
-            pathname
+            pathname,
+            true
           );
         } else if (cookie && cookie.email === params.techEmail) {
           console.log('start tech session from cooke token');
@@ -78,7 +84,8 @@ export const PrivateRoute = ({
             params.studioId,
             params.techEmail,
             cookie.token,
-            pathname
+            pathname,
+            true
           );
         } else {
           console.log('logout');
@@ -119,11 +126,11 @@ export const PrivateRoute = ({
     <Route
       {...rest}
       component={(props) =>
-        isAuth ? (
+        isAuth && techEmail ? (
           <div>
             <Component {...props} />
           </div>
-        ) : authLoading ? (
+        ) : authLoading || !techEmail ? (
           <Spinner />
         ) : (
           <Container style={{ marginTop: '20px', textAlign: 'center' }}>
@@ -148,10 +155,12 @@ const mapStateToProps = (state) => ({
   isAuth: selectIsAuth(state),
   redirect: selectAuthRedirect(state),
   authLoading: selectAuthLoading(state),
+  techEmail: selectTechEmail(state),
 });
 
 export default connect(mapStateToProps, {
   logout,
   sessionLogin,
   sessionResume,
+  getCurrentTech,
 })(PrivateRoute);

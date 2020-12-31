@@ -1,5 +1,6 @@
 import network from 'utils/network';
 import Cookies from 'js-cookie';
+import { getCurrentTech } from 'actions/tech';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -31,11 +32,20 @@ export const sessionResume = (studioId, email, token) => async (dispatch) => {
 };
 
 // start cookie session
-export const sessionLogin = (studioId, email, token, pathname) => async (
-  dispatch
-) => {
+export const sessionLogin = (
+  studioId,
+  email,
+  token,
+  pathname,
+  isTech
+) => async (dispatch) => {
   dispatch({ type: AUTH_LOADING });
   try {
+    // get current tech if tech workorder
+    if (isTech) {
+      dispatch(getCurrentTech(email, studioId));
+    }
+
     const res = await network.startSession(token, email, studioId);
     if (res.request.responseURL.includes('login')) {
       dispatch({ type: REDIRECT, payload: pathname });
