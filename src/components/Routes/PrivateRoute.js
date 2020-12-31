@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Container, Typography } from '@material-ui/core';
@@ -27,7 +28,6 @@ export const PrivateRoute = ({
   sessionResume,
   login,
   logout,
-  sessionLoginRequester,
   techEmail,
   getCurrentTech,
   setToken,
@@ -37,7 +37,10 @@ export const PrivateRoute = ({
   ...rest
 }) => {
   const history = useHistory();
+
+  // loggin logic
   useEffect(() => {
+    // handle login for requester page - initial token login
     if (params.requesterEmail) {
       if (Cookies.get('onumaLocal')) {
         cookie = JSON.parse(atob(Cookies.get('onumaLocal')));
@@ -52,6 +55,7 @@ export const PrivateRoute = ({
             params.id,
             false
           );
+          // handle login for requester page - handle login if no token in url from local cookie (refreshing page ect...)
         } else if (cookie && cookie.email === params.requesterEmail) {
           console.log('start requester session from cookie token');
           sessionLogin(
@@ -70,6 +74,7 @@ export const PrivateRoute = ({
       if (Cookies.get('onumaLocal')) {
         cookie = JSON.parse(atob(Cookies.get('onumaLocal')));
       }
+      // handle login for technician page - initial token login
       if (!isAuth && authLoading) {
         if (params.token) {
           console.log('start tech session from param token');
@@ -80,6 +85,7 @@ export const PrivateRoute = ({
             pathname,
             true
           );
+          // handle login for technician page - handle login if no token in url from local cookie (refreshing page ect...)
         } else if (cookie && cookie.email === params.techEmail) {
           console.log('start tech session from cooke token');
           sessionLogin(
@@ -95,15 +101,7 @@ export const PrivateRoute = ({
         }
       }
     }
-  }, [
-    isAuth,
-    params,
-    sessionLoginRequester,
-    sessionLogin,
-    pathname,
-    logout,
-    authLoading,
-  ]);
+  }, [isAuth, params, sessionLogin, pathname, logout, authLoading]);
 
   // set tech token in state and remove token from url
   useEffect(() => {
@@ -123,7 +121,7 @@ export const PrivateRoute = ({
     sessionResume(params.studioId, params.techEmail, cookie.token);
   }, 1800000);
 
-  // redirect to login page if tech requires login when not in development
+  // redirect to login page if tech requires login
   if (!isAuth && redirect) {
     return (
       <Route
@@ -161,6 +159,23 @@ export const PrivateRoute = ({
       }
     />
   );
+};
+
+PrivateRoute.propRypes = {
+  token: PropTypes.string,
+  isAuth: PropTypes.bool.isRequired,
+  authLoading: PropTypes.bool.isRequired,
+  redirect: PropTypes.string,
+  sessionLogin: PropTypes.func.isRequired,
+  sessionResume: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  techEmail: PropTypes.string,
+  getCurrentTech: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
+  location: PropTypes.object,
+  computedMatch: PropTypes.object,
+  Component: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
