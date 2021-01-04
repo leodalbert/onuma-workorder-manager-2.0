@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Accordion,
@@ -11,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Spinner from 'components/Common/Spinner';
+import RequestDetails from 'containers/WorkOrderContainer/components/RequestDetails';
 
 const tasks = [1, 2];
 const workOrderStatus = 'Assigned';
@@ -38,7 +38,7 @@ const WorkOrder = (props) => {
   console.count('workorderAccordion');
   const classes = useStyles();
 
-  return false ? (
+  return props.loading ? (
     <Spinner />
   ) : (
     <div className={classes.root}>
@@ -52,7 +52,15 @@ const WorkOrder = (props) => {
             Request Details
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>details go here</AccordionDetails>
+        <AccordionDetails>
+          <RequestDetails
+            workorder={props.workorder}
+            components={props.components}
+            space={props.space}
+            studioId={Number(props.match.params.studioId)}
+            sendCommentToRequestor={props.sendCommentToRequestor}
+          />
+        </AccordionDetails>
       </Accordion>
       {tasks.length > 0 && (
         <Accordion square defaultExpanded>
@@ -99,12 +107,6 @@ const WorkOrder = (props) => {
       </Accordion>
     </div>
   );
-};
-
-WorkOrder.propTypes = {
-  // match: PropTypes.object.isRequired,
-  // getWorkOrderById: PropTypes.func.isRequired,
-  // workorderId: PropTypes.number,
 };
 
 export default memo(WorkOrder);

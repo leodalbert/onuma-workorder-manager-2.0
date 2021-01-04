@@ -1,9 +1,14 @@
 import produce from 'immer';
-import { GET_WORKORDER, GET_WORKORDER_FILES } from 'actions/types';
+import {
+  GET_WORKORDER,
+  GET_WORKORDER_FILES,
+  SEND_COMMENT_TO_REQUESTOR,
+} from 'actions/types';
 
 export const initialState = {
   id: undefined,
   tasks: [],
+  administrator_comment: '',
   collaborators: [],
   building: { name: '' },
   space: { name: '' },
@@ -35,6 +40,9 @@ const WorkOrder = (state = initialState, action) =>
         };
       case GET_WORKORDER_FILES:
         draft.files = payload;
+        break;
+      case SEND_COMMENT_TO_REQUESTOR:
+        draft.administrator_comment = payload;
         break;
       default:
         break;

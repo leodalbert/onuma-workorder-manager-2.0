@@ -6,6 +6,7 @@ import {
   LOGIN_FAIL,
   SET_SPACE_INFO,
   SET_SPACE_FLOOR_ID,
+  SEND_COMMENT_TO_REQUESTOR,
 } from 'actions/types';
 
 // Get floor 0 id of building
@@ -59,6 +60,28 @@ export const getWorkorderFiles = (workorderId, studioId) => async (
   try {
     const res = await network.getWorkorderFiles(workorderId, studioId);
     dispatch({ type: GET_WORKORDER_FILES, payload: res.data });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// Patch Workorder with new comment to requestor
+export const sendCommentToRequestor = (
+  comment,
+  studioId,
+  workorderId
+) => async (dispatch) => {
+  try {
+    const res = await network.sendCommentToRequestor(
+      comment,
+      studioId,
+      workorderId
+    );
+
+    dispatch({
+      type: SEND_COMMENT_TO_REQUESTOR,
+      payload: res.data.administrator_comment,
+    });
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });
   }

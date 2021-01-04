@@ -26,9 +26,17 @@ export const makeSelectWorkorder = createSelector(
       collaborators,
       loading,
       token,
+      components,
       ...everythingElse
     } = workorder;
     return everythingElse;
+  }
+);
+
+export const makeSelectWorkorderComponents = createSelector(
+  selectWorkorder,
+  (workorder) => {
+    return workorder.components;
   }
 );
 
