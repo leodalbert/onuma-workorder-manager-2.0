@@ -1,28 +1,22 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import Spinner from 'components/Common/Spinner';
+import WorkOrderAccordion from 'containers/WorkOrderContainer/components/WorkOrderAccordion';
 
-const WorkOrder = ({ match: { params }, getWorkOrderById, workorderId }) => {
-  // get workorder
+const WorkOrder = (props) => {
+  const {
+    match: { params },
+    getWorkOrderById,
+    workorderId,
+    loading,
+  } = props;
+  //   get workorder
   useEffect(() => {
     !workorderId && getWorkOrderById(params.id, params.studioId);
   }, [workorderId, getWorkOrderById, params.id, params.studioId]);
 
-  console.count('workorder');
-  return (
-    <div>
-      <div>workorder</div>
-    </div>
-  );
+  return loading ? <Spinner /> : <WorkOrderAccordion {...props} />;
 };
 
 WorkOrder.propTypes = {

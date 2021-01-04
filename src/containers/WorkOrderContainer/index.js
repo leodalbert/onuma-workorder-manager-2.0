@@ -1,18 +1,25 @@
 import { connect } from 'react-redux';
-import WorkOrder from './components/WorkOrder';
+import WorkOrderContainer from './components/WorkOrderContainer';
 import { getWorkOrderById } from 'actions/workorder';
-import { selectWorkorder, selectWorkorderId } from 'Selectors/workorder';
+import {
+  selectWorkorderCollaborators,
+  selectWorkorderId,
+  selectWorkorderLoading,
+  makeSelectWorkorder,
+} from 'Selectors/workorder';
 
 const mapStateToProps = (state) => ({
-  workorder: selectWorkorder(state),
+  collaborators: selectWorkorderCollaborators(state),
+  workorder: makeSelectWorkorder(state),
   workorderId: selectWorkorderId(state),
+  loading: selectWorkorderLoading(state),
 });
 
 const mapDispatchToProps = { getWorkOrderById };
 
-const WorkOrderContainer = connect(
+const WorkOrder = connect(
   mapStateToProps,
   mapDispatchToProps
-)(WorkOrder);
+)(WorkOrderContainer);
 
-export default WorkOrderContainer;
+export default WorkOrder;

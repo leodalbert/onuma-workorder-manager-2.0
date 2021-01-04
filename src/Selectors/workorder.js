@@ -9,11 +9,28 @@ export const selectWorkorder = (state) => state.workorder || initialState;
 
 export const selectWorkorderId = (state) => selectWorkorder(state).id;
 
+export const selectWorkorderLoading = (state) => selectWorkorder(state).loading;
+
 export const selectWorkorderTech = (state) =>
   selectWorkorder(state).assigned_technician.email;
 
 export const selectWorkorderCollaborators = (state) =>
   selectWorkorder(state).collaborators;
+
+export const makeSelectWorkorder = createSelector(
+  selectWorkorder,
+  (workorder) => {
+    const {
+      files,
+      tasks,
+      collaborators,
+      loading,
+      token,
+      ...everythingElse
+    } = workorder;
+    return everythingElse;
+  }
+);
 
 export const makeSelectWorkorderCollaboratorTokens = createSelector(
   selectWorkorderCollaborators,
