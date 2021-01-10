@@ -22,7 +22,6 @@ export const makeSelectWorkorder = createSelector(
   (workorder) => {
     const {
       files,
-      tasks,
       collaborators,
       loading,
       token,

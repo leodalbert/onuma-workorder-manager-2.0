@@ -1,8 +1,8 @@
 import React from 'react';
 
 function Task(props) {
-  console.log(props);
-  console.count('task');
+  // console.log(props);
+  // console.count('task');
   return <div />;
 }
 

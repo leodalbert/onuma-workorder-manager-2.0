@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
 import RequestDetails from 'containers/WorkOrderContainer/components/RequestDetails';
+import PreviousTasks from 'containers/PreviousTasksContainer';
 import Task from 'containers/TaskContainer';
 
 const tasks = [1, 2];
@@ -68,7 +69,7 @@ const WorkOrder = (props) => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ padding: 0 }}>
-            prev tasks go here
+            <PreviousTasks studioId={props.match.params.studioId} />
           </AccordionDetails>
         </Accordion>
       )}

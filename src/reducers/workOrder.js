@@ -7,7 +7,6 @@ import {
 
 export const initialState = {
   id: undefined,
-  tasks: [],
   administrator_comment: '',
   collaborators: [],
   building: { name: '' },
@@ -29,9 +28,13 @@ export const initialState = {
 /* eslint-disable no-param-reassign */
 const WorkOrder = (state = initialState, action) =>
   produce(state, (draft) => {
-    const { type, payload } = action;
+    let { type, payload } = action;
     switch (type) {
       case GET_WORKORDER:
+        // remove parts of workorder directed at other reducers
+        delete payload.tasks;
+        delete payload.components;
+
         return {
           ...state,
           ...payload,

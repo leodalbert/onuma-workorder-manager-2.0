@@ -1,5 +1,6 @@
 import produce from 'immer';
 import {
+  GET_WORKORDER,
   GET_SPACE_COMPONENTS,
   GET_WORK_ORDER_COMPONENTS,
   GET_COMPONENT_LINKS,
@@ -7,7 +8,6 @@ import {
   REMOVE_COMPONENT,
   SEARCH_COMPONENTS,
   SEARCH_LOADING,
-  GET_WORKORDER_COMPONENT_IDS,
   ADD_COMPONENT,
 } from 'actions/types';
 
@@ -26,8 +26,8 @@ const Components = (state = initialState, action) =>
   produce(state, (draft) => {
     const { payload, type } = action;
     switch (type) {
-      case GET_WORKORDER_COMPONENT_IDS:
-        draft.workorderComponentIds = payload;
+      case GET_WORKORDER:
+        draft.workorderComponentIds = payload.components;
         break;
       case GET_SPACE_COMPONENTS:
         draft.spaceComponents = payload;

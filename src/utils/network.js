@@ -206,7 +206,7 @@ const network = () => {
   };
 
   // Post new task for workorder
-  const addNewTask = (taskForm, costs, studioId) => {
+  const addNewTask = (taskForm, studioId) => {
     // TODO - handle cost?
     const config = { headers };
     const data = taskForm;
