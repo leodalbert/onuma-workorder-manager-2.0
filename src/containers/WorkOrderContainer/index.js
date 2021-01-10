@@ -7,7 +7,6 @@ import {
   selectWorkorderId,
   selectWorkorderLoading,
   makeSelectWorkorder,
-  makeSelectWorkorderComponents,
 } from 'Selectors/workorder';
 
 const mapStateToProps = (state) => ({
@@ -15,7 +14,6 @@ const mapStateToProps = (state) => ({
   collaborators: selectWorkorderCollaborators(state),
   workorder: makeSelectWorkorder(state),
   workorderId: selectWorkorderId(state),
-  components: makeSelectWorkorderComponents(state),
   loading: selectWorkorderLoading(state),
 });
 

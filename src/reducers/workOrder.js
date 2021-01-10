@@ -3,6 +3,8 @@ import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
   SEND_COMMENT_TO_REQUESTOR,
+  ADD_COMPONENT,
+  REMOVE_COMPONENT,
 } from 'actions/types';
 
 export const initialState = {
@@ -43,6 +45,14 @@ const WorkOrder = (state = initialState, action) =>
         break;
       case SEND_COMMENT_TO_REQUESTOR:
         draft.administrator_comment = payload;
+        break;
+      case ADD_COMPONENT:
+        draft.components.push(payload);
+        break;
+      case REMOVE_COMPONENT:
+        draft.components = draft.components.filter(
+          (component) => component.id !== payload
+        );
         break;
       default:
         break;

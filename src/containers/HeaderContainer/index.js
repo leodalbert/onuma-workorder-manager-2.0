@@ -2,9 +2,7 @@
 import { connect } from 'react-redux';
 import Header from './components/Header';
 
-const mapStateToProps = (state) => ({
-  text: 'test',
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 

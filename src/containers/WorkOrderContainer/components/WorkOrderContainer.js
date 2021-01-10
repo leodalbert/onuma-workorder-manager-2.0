@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Spinner from 'components/Common/Spinner';
@@ -11,6 +11,7 @@ const WorkOrder = (props) => {
     workorderId,
     loading,
   } = props;
+  console.count('container');
   //   get workorder
   useEffect(() => {
     !workorderId && getWorkOrderById(params.id, params.studioId);
@@ -25,4 +26,4 @@ WorkOrder.propTypes = {
   workorderId: PropTypes.number,
 };
 
-export default WorkOrder;
+export default memo(WorkOrder);

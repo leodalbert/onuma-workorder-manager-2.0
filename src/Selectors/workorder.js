@@ -33,7 +33,15 @@ export const makeSelectWorkorder = createSelector(
   }
 );
 
-export const makeSelectWorkorderComponents = createSelector(
+export const makeSelectWorkorderSpaceForComponentSearch = createSelector(
+  selectWorkorder,
+  (workorder) => {
+    const { id: workorderId, building, space } = workorder;
+    return { workorderId, building, space };
+  }
+);
+
+export const makeSelectWorkorderComponentIds = createSelector(
   selectWorkorder,
   (workorder) => {
     return workorder.components;

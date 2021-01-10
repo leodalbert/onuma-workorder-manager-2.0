@@ -248,8 +248,7 @@ const network = () => {
   };
 
   //   Get details for work order components
-  const getWorkOrderComponentDetails = (componentId, instanceId, studioId) => {
-    // TODO - handle param
+  const getWorkOrderComponentDetails = (componentId, studioId) => {
     const config = { headers };
     return axios.get(
       `${baseUrl}/${studioId}/api/items/component/${componentId}?fields=id,component_type.model_number,component_type.description,component_type.name,component_type.manufacturer,component_type.parts_warranty_guarantor,component_type.parts_warranty_duration,component_type.labour_warranty_guarantor,component_type.labour_warranty_duration,component_type.warranty_duration_unit,component_type.category,name,instance_name,description,serial_number,barcode,installation_date,warranty_start_date,space_component.space.name,space_component.id,space_component.space.floor.name,space_component.space.floor.number,space_component.space.number,component_type.attributes,attributes,`,

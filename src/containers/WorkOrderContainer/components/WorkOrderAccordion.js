@@ -9,7 +9,6 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Spinner from 'components/Common/Spinner';
 import RequestDetails from 'containers/WorkOrderContainer/components/RequestDetails';
 
 const tasks = [1, 2];
@@ -34,13 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WorkOrder = (props) => {
-  console.log(props);
-  console.count('workorderAccordion');
   const classes = useStyles();
-
-  return props.loading ? (
-    <Spinner />
-  ) : (
+  return (
     <div className={classes.root}>
       <Accordion square defaultExpanded>
         <AccordionSummary
@@ -55,9 +49,8 @@ const WorkOrder = (props) => {
         <AccordionDetails>
           <RequestDetails
             workorder={props.workorder}
-            components={props.components}
             space={props.space}
-            studioId={Number(props.match.params.studioId)}
+            studioId={props.match.params.studioId}
             sendCommentToRequestor={props.sendCommentToRequestor}
           />
         </AccordionDetails>

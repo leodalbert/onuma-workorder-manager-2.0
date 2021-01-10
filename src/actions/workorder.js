@@ -1,5 +1,8 @@
 import network from 'utils/network';
-import { getSpaceComponents } from 'actions/component';
+import {
+  getSpaceComponents,
+  getInitialWorkOrderComponentDetails,
+} from 'actions/component';
 import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
@@ -27,6 +30,13 @@ export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
   try {
     const res = await network.getWorkorderById(workorderId, studioId);
     let workorder = res.data;
+
+    // get details of components in workorder
+    if (workorder.components.length > 0) {
+      dispatch(
+        getInitialWorkOrderComponentDetails(workorder.components, studioId)
+      );
+    }
 
     // create object with buidling info if availible
     let buildingInfo = {};
