@@ -1,14 +1,12 @@
 import { connect } from 'react-redux';
 import Components from './components/Components';
-import {
-  makeSelectWorkorderComponentIds,
-  selectWorkorderId,
-} from 'Selectors/workorder';
+import { selectWorkorderId } from 'Selectors/workorder';
 import { selectDialogComponent } from 'Selectors/componentDialog';
 import {
   makeSelectSpaceComponents,
   makeSelectWorkorderComponents,
   selectComponentLoading,
+  selectWorkorderComponentIds,
 } from 'Selectors/component';
 import {
   fillComponentDialog,
@@ -18,7 +16,7 @@ import {
 } from 'actions/component';
 
 const mapStateToProps = (state) => ({
-  workorderComponentIds: makeSelectWorkorderComponentIds(state),
+  workorderComponentIds: selectWorkorderComponentIds(state),
   workOrderComponents: makeSelectWorkorderComponents(state),
   workorderId: selectWorkorderId(state),
   spaceComponents: makeSelectSpaceComponents(state),

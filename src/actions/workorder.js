@@ -10,6 +10,7 @@ import {
   SET_SPACE_INFO,
   SET_SPACE_FLOOR_ID,
   SEND_COMMENT_TO_REQUESTOR,
+  GET_WORKORDER_COMPONENT_IDS,
 } from 'actions/types';
 
 // Get floor 0 id of building
@@ -31,11 +32,14 @@ export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
     const res = await network.getWorkorderById(workorderId, studioId);
     let workorder = res.data;
 
+    // create a new variable to store components and remove from workorder object
+    const components = workorder.components;
+    delete workorder.components;
+
     // get details of components in workorder
-    if (workorder.components.length > 0) {
-      dispatch(
-        getInitialWorkOrderComponentDetails(workorder.components, studioId)
-      );
+    if (components.length > 0) {
+      dispatch(getInitialWorkOrderComponentDetails(components, studioId));
+      dispatch({ type: GET_WORKORDER_COMPONENT_IDS, payload: components });
     }
 
     // create object with buidling info if availible

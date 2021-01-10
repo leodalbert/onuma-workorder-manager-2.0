@@ -11,7 +11,7 @@ const WorkOrder = (props) => {
     workorderId,
     loading,
   } = props;
-  console.count('container');
+
   //   get workorder
   useEffect(() => {
     !workorderId && getWorkOrderById(params.id, params.studioId);

@@ -7,12 +7,15 @@ import {
   REMOVE_COMPONENT,
   SEARCH_COMPONENTS,
   SEARCH_LOADING,
+  GET_WORKORDER_COMPONENT_IDS,
+  ADD_COMPONENT,
 } from 'actions/types';
 
 export const initialState = {
   spaceComponents: [],
   current: null,
   workOrderComponents: [],
+  workorderComponentIds: [],
   componentLoading: true,
   searchResults: [],
   searchLoading: false,
@@ -23,6 +26,9 @@ const Components = (state = initialState, action) =>
   produce(state, (draft) => {
     const { payload, type } = action;
     switch (type) {
+      case GET_WORKORDER_COMPONENT_IDS:
+        draft.workorderComponentIds = payload;
+        break;
       case GET_SPACE_COMPONENTS:
         draft.spaceComponents = payload;
         break;
@@ -40,9 +46,15 @@ const Components = (state = initialState, action) =>
           }
         );
         break;
+      case ADD_COMPONENT:
+        draft.workorderComponentIds.push(payload);
+        break;
       case REMOVE_COMPONENT:
         draft.workOrderComponents = draft.workOrderComponents.filter(
           (component) => component.instanceId !== payload
+        );
+        draft.workorderComponentIds = draft.workorderComponentIds.filter(
+          (component) => component.id !== payload
         );
         break;
       case SET_COMPONENT_LOADING:

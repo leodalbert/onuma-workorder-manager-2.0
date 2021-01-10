@@ -19,6 +19,9 @@ export const selectSearchLoading = (state) =>
 export const selectSpaceComponents = (state) =>
   selectComponents(state).spaceComponents;
 
+export const selectWorkorderComponentIds = (state) =>
+  selectComponents(state).workorderComponentIds;
+
 export const makeSelectSpaceComponents = createSelector(
   selectComponents,
   (components) => {

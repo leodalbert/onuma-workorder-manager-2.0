@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
 import RequestDetails from 'containers/WorkOrderContainer/components/RequestDetails';
+import Task from 'containers/TaskContainer';
 
 const tasks = [1, 2];
 const workOrderStatus = 'Assigned';
@@ -83,7 +84,9 @@ const WorkOrder = (props) => {
                 Task Details
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>task details go here</AccordionDetails>
+            <AccordionDetails>
+              <Task />
+            </AccordionDetails>
           </Accordion>
         )}
       <Accordion square defaultExpanded>

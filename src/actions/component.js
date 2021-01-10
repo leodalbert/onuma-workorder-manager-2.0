@@ -111,13 +111,11 @@ export const addComponent = (componentId, workorderId, studioId) => async (
   dispatch({ type: SET_COMPONENT_LOADING, payload: true });
   try {
     const res = await network.addComponent(componentId, workorderId, studioId);
-
     // object with component instance and type id
     const componentIds = {
       id: res.data.id,
       component: res.data.component,
     };
-
     // get details and add button on component page
     dispatch(getInitialWorkOrderComponentDetails([componentIds], studioId));
 

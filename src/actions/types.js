@@ -1,5 +1,6 @@
 export const CURRENT_TECH = 'CURRENT_TECH';
 export const GET_WORKORDER = 'GET_WORKORDER';
+export const GET_WORKORDER_COMPONENT_IDS = 'GET_WORKORDER_COMPONENT_IDS';
 export const URL_PARAMS = 'URL_PARAMS';
 export const ERROR = 'ERROR';
 export const AUTH_LOADING = 'AUTH_LOADING';

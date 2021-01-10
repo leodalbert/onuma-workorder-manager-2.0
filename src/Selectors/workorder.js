@@ -26,25 +26,30 @@ export const makeSelectWorkorder = createSelector(
       collaborators,
       loading,
       token,
-      components,
       ...everythingElse
     } = workorder;
     return everythingElse;
   }
 );
 
+export const makeSelectWorkorder2 = () =>
+  createSelector(selectWorkorder, (workorder) => {
+    const {
+      files,
+      tasks,
+      collaborators,
+      loading,
+      token,
+      ...everythingElse
+    } = workorder;
+    return everythingElse;
+  });
+
 export const makeSelectWorkorderSpaceForComponentSearch = createSelector(
   selectWorkorder,
   (workorder) => {
     const { id: workorderId, building, space } = workorder;
     return { workorderId, building, space };
-  }
-);
-
-export const makeSelectWorkorderComponentIds = createSelector(
-  selectWorkorder,
-  (workorder) => {
-    return workorder.components;
   }
 );
 
