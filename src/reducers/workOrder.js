@@ -3,6 +3,7 @@ import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
   SEND_COMMENT_TO_REQUESTOR,
+  CHANGE_WORKORDER_STATUS,
 } from 'actions/types';
 
 export const initialState = {
@@ -34,6 +35,7 @@ const WorkOrder = (state = initialState, action) =>
         // remove parts of workorder directed at other reducers
         delete payload.tasks;
         delete payload.components;
+        delete payload.collaborators;
 
         return {
           ...state,
@@ -46,6 +48,9 @@ const WorkOrder = (state = initialState, action) =>
         break;
       case SEND_COMMENT_TO_REQUESTOR:
         draft.administrator_comment = payload;
+        break;
+      case CHANGE_WORKORDER_STATUS:
+        draft.status = payload;
         break;
       default:
         break;

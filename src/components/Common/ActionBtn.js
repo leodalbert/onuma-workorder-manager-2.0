@@ -9,7 +9,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActionBtn = ({ children, handleClick, disabled }) => {
+const ActionBtn = ({
+  children,
+  handleClick,
+  disabled = false,
+  autoFocus = false,
+  ...rest
+}) => {
   const classes = useStyles();
   return (
     <Button
@@ -17,14 +23,16 @@ const ActionBtn = ({ children, handleClick, disabled }) => {
       disabled={disabled}
       variant='contained'
       className={classes.btnWidth}
-      color='secondary'>
+      color='secondary'
+      autoFocus={autoFocus}
+      {...rest}>
       {children}
     </Button>
   );
 };
 
 ActionBtn.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
   disabled: PropTypes.bool,
 };
 

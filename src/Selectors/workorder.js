@@ -12,10 +12,20 @@ export const selectWorkorderId = (state) => selectWorkorder(state).id;
 export const selectWorkorderLoading = (state) => selectWorkorder(state).loading;
 
 export const selectWorkorderTech = (state) =>
-  selectWorkorder(state).assigned_technician.email;
+  selectWorkorder(state).assigned_technician;
 
-export const selectWorkorderCollaborators = (state) =>
-  selectWorkorder(state).collaborators;
+export const selectWorkorderTechId = (state) => selectWorkorderTech(state).id;
+
+export const selectWorkorderTechEmail = (state) =>
+  selectWorkorderTech(state).email;
+
+export const selectWorkorderSpaceName = (state) =>
+  selectWorkorder(state).space.name;
+
+export const selectWorkorderBuildingName = (state) =>
+  selectWorkorder(state).building.name;
+
+export const selectWorkorderStatus = (state) => selectWorkorder(state).status;
 
 export const makeSelectWorkorder = createSelector(
   selectWorkorder,
@@ -31,19 +41,6 @@ export const makeSelectWorkorder = createSelector(
   }
 );
 
-export const makeSelectWorkorder2 = () =>
-  createSelector(selectWorkorder, (workorder) => {
-    const {
-      files,
-      tasks,
-      collaborators,
-      loading,
-      token,
-      ...everythingElse
-    } = workorder;
-    return everythingElse;
-  });
-
 export const makeSelectWorkorderSpaceForComponentSearch = createSelector(
   selectWorkorder,
   (workorder) => {
@@ -52,16 +49,7 @@ export const makeSelectWorkorderSpaceForComponentSearch = createSelector(
   }
 );
 
-export const makeSelectWorkorderCollaboratorTokens = createSelector(
-  selectWorkorderCollaborators,
-  (collaborators) => {
-    return collaborators.map((collaborator) => collaborator.collaborator.token);
-  }
-);
-
-export const makeSelectWorkorderCollaboratorEmails = createSelector(
-  selectWorkorderCollaborators,
-  (collaborators) => {
-    return collaborators.map((collaborator) => collaborator.collaborator.email);
-  }
+export const makeSelectWorkorderTechName = createSelector(
+  selectWorkorderTech,
+  (tech) => `${tech.first_name} ${tech.last_name}`
 );

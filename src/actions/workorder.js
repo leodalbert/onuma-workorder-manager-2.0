@@ -10,6 +10,7 @@ import {
   SET_SPACE_INFO,
   SET_SPACE_FLOOR_ID,
   SEND_COMMENT_TO_REQUESTOR,
+  CHANGE_WORKORDER_STATUS,
 } from 'actions/types';
 
 // Get floor 0 id of building
@@ -92,6 +93,20 @@ export const sendCommentToRequestor = (
       type: SEND_COMMENT_TO_REQUESTOR,
       payload: res.data.administrator_comment,
     });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// Patch work order status Change
+export const workOrderStatusChange = (workorderId, status, studioId) => async (
+  dispatch
+) => {
+  try {
+    const res = await network.workOrderStatusChange(
+      (workorderId, status, studioId)
+    );
+    dispatch({ type: CHANGE_WORKORDER_STATUS, payload: res.data.status });
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });
   }

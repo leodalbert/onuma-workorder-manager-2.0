@@ -41,10 +41,3 @@ export const makeSelectWorkorderComponents = createSelector(
     return components.workOrderComponents;
   }
 );
-
-// export const makeSelectWorkorderCollaboratorEmails = createSelector(
-//   selectWorkorderCollaborators,
-//   (collaborators) => {
-//     return collaborators.map((collaborator) => collaborator.collaborator.email);
-//   }
-// );

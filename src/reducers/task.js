@@ -2,6 +2,7 @@ import produce from 'immer';
 import {
   GET_TASK_COSTS,
   ADD_COST,
+  ADD_TASK,
   GET_WORKORDER,
   UPDATE_WORKORDER_TASK,
 } from 'actions/types';
@@ -33,6 +34,9 @@ const Task = (state = initialState, action) =>
         break;
       case ADD_COST:
         draft.taskCosts.push(payload);
+        break;
+      case ADD_TASK:
+        draft.workorderTasks.push(payload);
         break;
       default:
         break;

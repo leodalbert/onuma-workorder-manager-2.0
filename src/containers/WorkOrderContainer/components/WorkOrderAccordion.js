@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import RequestDetails from 'containers/WorkOrderContainer/components/RequestDetails';
 import PreviousTasks from 'containers/PreviousTasksContainer';
-import Task from 'containers/TaskContainer';
+import TaskDetails from 'containers/TaskDetailsContainer';
 
 const tasks = [1, 2];
 const workOrderStatus = 'Assigned';
@@ -86,7 +86,7 @@ const WorkOrder = (props) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Task />
+              <TaskDetails studioId={props.match.params.studioId} />
             </AccordionDetails>
           </Accordion>
         )}

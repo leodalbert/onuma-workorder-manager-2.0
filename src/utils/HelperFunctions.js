@@ -287,3 +287,17 @@ export const filterComponents = (spaceComponents, workOrderComponents) => {
   }
   return spaceComponents;
 };
+
+// Function to generate anchor tag for tech email
+export const TechEmail = (name, email, building, room, workOrderId) => (
+  <a
+    style={{ textDecoration: 'none', fontFamily: 'sans-serif' }}
+    href={
+      'mailto:' +
+      email +
+      `?subject=Regarding work order ${workOrderId && `#${workOrderId}`} ${
+        building && `for ${building}`
+      } ${room && 'in ' + room}` +
+      `&body=Hi%20${name},`
+    }>{`${name} (${email})`}</a>
+);

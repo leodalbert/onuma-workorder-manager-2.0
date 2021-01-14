@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import WorkOrderContainer from './components/WorkOrderContainer';
 import { getWorkOrderById, sendCommentToRequestor } from 'actions/workorder';
 import { selectSpace } from 'Selectors/space';
+import { selectCollaborators } from 'Selectors/collaborators';
 import {
-  selectWorkorderCollaborators,
   selectWorkorderId,
   selectWorkorderLoading,
   makeSelectWorkorder,
@@ -11,7 +11,7 @@ import {
 
 const mapStateToProps = (state) => ({
   space: selectSpace(state),
-  collaborators: selectWorkorderCollaborators(state),
+  collaborators: selectCollaborators(state),
   workorder: makeSelectWorkorder(state),
   workorderId: selectWorkorderId(state),
   loading: selectWorkorderLoading(state),
