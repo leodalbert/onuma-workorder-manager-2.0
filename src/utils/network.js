@@ -162,8 +162,7 @@ const network = () => {
   };
 
   // Upload file Attachment
-  const uploadFile = (data, studioId, workorderId, techId) => {
-    // TODO - handle workorderId?
+  const uploadFile = (data, studioId, techId) => {
     const config = {
       headers: { ...headers, 'content-type': 'multipart/form-data' },
     };

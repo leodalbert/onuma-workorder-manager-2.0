@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import RequestDetails from 'containers/WorkOrderContainer/components/RequestDetails';
 import PreviousTasks from 'containers/PreviousTasksContainer';
 import TaskDetails from 'containers/TaskDetailsContainer';
+import Attachments from 'containers/AttachmentsContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,7 +98,9 @@ const WorkOrder = (props) => {
             Attachments
           </Typography>
         </AccordionSummary>
-        <AccordionDetails>attachment page goes here</AccordionDetails>
+        <AccordionDetails>
+          <Attachments studioId={props.match.params.studioId} />
+        </AccordionDetails>
       </Accordion>
     </div>
   );

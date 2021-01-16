@@ -22,7 +22,6 @@ export const initialState = {
   maintenance_procedures: [],
   token: '',
   request_email_cc: '',
-  files: [],
   loading: true,
 };
 
@@ -43,9 +42,6 @@ const WorkOrder = (state = initialState, action) =>
           maintenance_procedures: payload.maintenance_procedures || [],
           loading: false,
         };
-      case GET_WORKORDER_FILES:
-        draft.files = payload;
-        break;
       case SEND_COMMENT_TO_REQUESTOR:
         draft.administrator_comment = payload;
         break;

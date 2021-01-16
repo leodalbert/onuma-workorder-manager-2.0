@@ -3,6 +3,7 @@ import {
   getSpaceComponents,
   getInitialWorkOrderComponentDetails,
 } from 'actions/component';
+import { getFileInfo } from 'actions/attachments';
 import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
@@ -107,6 +108,18 @@ export const workOrderStatusChange = (workorderId, status, studioId) => async (
       (workorderId, status, studioId)
     );
     dispatch({ type: CHANGE_WORKORDER_STATUS, payload: res.data.status });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// Post new workorder_directus_files record with new directus_files record
+export const patchWorkorderWithFile = (id, studioId, workorderId) => async (
+  dispatch
+) => {
+  try {
+    const res = await network.patchWorkorderWithFile(id, studioId, workorderId);
+    dispatch(getFileInfo(studioId, res.data.id));
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });
   }

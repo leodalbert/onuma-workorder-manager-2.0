@@ -7,6 +7,7 @@ import workorder from './workOrder';
 import space from './space';
 import componentDialog from './componentDialog';
 import collaborator from './collaborator';
+import attachments from './attachments';
 
 export default combineReducers({
   auth,
@@ -14,6 +15,7 @@ export default combineReducers({
   task,
   tech,
   collaborator,
+  attachments,
   workorder,
   space,
   componentDialog,
