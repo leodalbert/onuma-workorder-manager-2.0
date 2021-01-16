@@ -6,3 +6,4 @@ import { initialState } from 'reducers/space';
  */
 export const selectSpace = (state) => state.space || initialState;
 export const selectSpaceId = (state) => selectSpace(state).spaceId;
+export const selectWorkorderSpaceName = (state) => selectSpace(state).spaceName;

@@ -16,7 +16,7 @@ export const initialState = {
   current: null,
   workOrderComponents: [],
   workorderComponentIds: [],
-  componentLoading: true,
+  componentLoading: false,
   searchResults: [],
   searchLoading: false,
 };

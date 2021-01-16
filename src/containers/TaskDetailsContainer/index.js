@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import TaskDetails from './components/TaskDetails';
 import { selectAllTechs, selectTechId } from 'Selectors/tech';
 import {
-  selectWorkorderSpaceName,
   selectWorkorderBuildingName,
   selectWorkorderId,
   makeSelectWorkorderTechName,
   selectWorkorderTechId,
   selectWorkorderTechEmail,
 } from 'Selectors/workorder';
+import { selectWorkorderSpaceName } from 'Selectors/space';
 import {
   selectCollaborators,
   makeSelectVisCollaborators,

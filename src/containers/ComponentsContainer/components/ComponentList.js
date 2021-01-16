@@ -121,7 +121,9 @@ const ComponentList = ({
         xs={12}
         sm={4}
         lg={5}>
-        <div justify='center' className={classes.labelStyle}>
+        <div
+          justify='center'
+          className={clsx(classes.labelStyle, classes.marginTopS)}>
           Components:
         </div>
       </Grid>
@@ -150,12 +152,10 @@ const ComponentList = ({
             </div>
           )}
         </Grid>
-        {filteredComponents.length > 0 && (
-          <ComponentSelector
-            filteredComponents={filteredComponents}
-            handleAddComponent={handleAddComponent}
-          />
-        )}
+        <ComponentSelector
+          filteredComponents={filteredComponents}
+          handleAddComponent={handleAddComponent}
+        />
       </Grid>
 
       <ComponentDetailDialog

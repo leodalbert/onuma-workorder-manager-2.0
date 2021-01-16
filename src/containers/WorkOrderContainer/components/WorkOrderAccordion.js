@@ -13,9 +13,6 @@ import RequestDetails from 'containers/WorkOrderContainer/components/RequestDeta
 import PreviousTasks from 'containers/PreviousTasksContainer';
 import TaskDetails from 'containers/TaskDetailsContainer';
 
-const tasks = [1, 2];
-const workOrderStatus = 'Assigned';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: '20px 10%',
@@ -35,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const WorkOrder = (props) => {
+  // console.log(props);
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -57,7 +55,7 @@ const WorkOrder = (props) => {
           />
         </AccordionDetails>
       </Accordion>
-      {tasks.length > 0 && (
+      {props.tasks.length > 0 && (
         <Accordion square defaultExpanded>
           <AccordionSummary
             className={classes.accordionHeader}
@@ -73,23 +71,22 @@ const WorkOrder = (props) => {
           </AccordionDetails>
         </Accordion>
       )}
-      {workOrderStatus !== 'Completed' &&
-        workOrderStatus !== 'Completion Confirmed' && (
-          <Accordion square defaultExpanded>
-            <AccordionSummary
-              className={classes.accordionHeader}
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls='taskDetails-content'
-              id='taskDetails-header'>
-              <Typography className={classes.accordionHeading}>
-                Task Details
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TaskDetails studioId={props.match.params.studioId} />
-            </AccordionDetails>
-          </Accordion>
-        )}
+      {(props.status === 'Work In Progress' || props.status === 'Assigned') && (
+        <Accordion square defaultExpanded>
+          <AccordionSummary
+            className={classes.accordionHeader}
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls='taskDetails-content'
+            id='taskDetails-header'>
+            <Typography className={classes.accordionHeading}>
+              Task Details
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <TaskDetails studioId={props.match.params.studioId} />
+          </AccordionDetails>
+        </Accordion>
+      )}
       <Accordion square defaultExpanded>
         <AccordionSummary
           className={classes.accordionHeader}
