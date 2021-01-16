@@ -4,12 +4,12 @@ import { Route, Switch } from 'react-router-dom';
 import StatusPageHeader from './StatusPageHeader';
 import TechPageHeader from './TechPageHeader';
 
-const Header = ({ text }) => {
+const Header = ({ ...rest }) => {
   return (
     <Switch>
       <Route
         path={`${process.env.PUBLIC_URL}/:studioId/technicians`}
-        render={(props) => <TechPageHeader {...props} text={text} />}
+        render={(props) => <TechPageHeader {...props} {...rest} />}
       />
       <Route
         path={`${process.env.PUBLIC_URL}/:studioId/requester`}

@@ -1,7 +1,6 @@
 import produce from 'immer';
 import {
   GET_WORKORDER,
-  GET_WORKORDER_FILES,
   SEND_COMMENT_TO_REQUESTOR,
   CHANGE_WORKORDER_STATUS,
 } from 'actions/types';

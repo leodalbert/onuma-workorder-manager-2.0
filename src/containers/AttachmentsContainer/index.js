@@ -4,7 +4,6 @@ import { selectWorkorderFiles } from 'Selectors/attachments';
 import { selectWorkorderId } from 'Selectors/workorder';
 import { selectTechId } from 'Selectors/tech';
 import { deleteAttachment } from 'actions/attachments';
-import test from './components/test';
 
 const mapStateToProps = (state) => ({
   files: selectWorkorderFiles(state),

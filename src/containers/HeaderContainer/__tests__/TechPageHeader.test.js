@@ -4,20 +4,26 @@ import { Router, MemoryRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
 import TechPageHeader from '../components/TechPageHeader';
+const props = {
+  name: 'testName',
+  match: { params: { studioId: '26' } },
+  token: 'testToken',
+  email: 'testEmail',
+};
 
 describe('tests with static URL', () => {
   beforeEach(() => {
     const history = createMemoryHistory();
     render(
       <Router history={history}>
-        <TechPageHeader name={'test'} />
+        <TechPageHeader {...props} />
       </Router>
     );
   });
 
   it('has a logo, the techs name, a get in touch button, and a link', () => {
     expect(screen.getAllByRole('img')).toHaveLength(1);
-    expect(screen.getByText('test')).toBeTruthy();
+    expect(screen.getByText('testName')).toBeTruthy();
     expect(screen.getAllByRole('link')).toHaveLength(1);
     expect(screen.getByText('Get In Touch')).toBeTruthy();
   });
@@ -33,12 +39,13 @@ describe('tests with static URL', () => {
     history.push = jest.fn();
     render(
       <Router history={history}>
-        <TechPageHeader name='techname' />
+        <TechPageHeader {...props} name={'email'} />
       </Router>
     );
-    fireEvent.click(screen.getByRole('link', { name: 'techname' }));
 
-    expect(history.push).toHaveBeenCalledWith('/26/technicians/lm@onuma.com');
+    fireEvent.click(screen.getByRole('link', { name: 'email' }));
+
+    expect(history.push).toHaveBeenCalledWith('/26/technicians/testEmail');
   });
 });
 
@@ -53,7 +60,7 @@ describe('test changes if route it workorder or dashboar', () => {
   const setUpApp = (routerProps) => {
     render(
       <MemoryRouter {...routerProps}>
-        <TechPageHeader />
+        <TechPageHeader {...props} />
       </MemoryRouter>
     );
   };

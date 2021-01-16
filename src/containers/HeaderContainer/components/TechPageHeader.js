@@ -33,10 +33,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TechPageHeader = ({
-  studio = 26,
-  token = 'test',
-  name = 'leo',
-  email = 'lm@onuma.com',
+  match: {
+    params: { studioId },
+  },
+  token,
+  name,
+  email,
 }) => {
   const classes = useStyles();
   const isWorkorder = !(
@@ -44,7 +46,7 @@ const TechPageHeader = ({
   );
   const openInPopup = () => {
     window.open(
-      `https://system.onuma.com/${studio}/get-in-touch?url=${encodeURIComponent(
+      `https://system.onuma.com/${studioId}/get-in-touch?url=${encodeURIComponent(
         window.location.href
       )}/${token}`,
       'window',
@@ -62,7 +64,7 @@ const TechPageHeader = ({
                 data-testid='menu-button'
                 color='inherit'
                 component={Link}
-                to={`${process.env.PUBLIC_URL}/${studio}/technicians/${
+                to={`${process.env.PUBLIC_URL}/${studioId}/technicians/${
                   email && email
                 }`}>
                 <FormatListBulletedRoundedIcon style={{ fontSize: 40 }} />
@@ -71,7 +73,7 @@ const TechPageHeader = ({
             <Typography
               style={{ textDecoration: 'inherit' }}
               component={Link}
-              to={`${process.env.PUBLIC_URL}/${studio}/technicians/${
+              to={`${process.env.PUBLIC_URL}/${studioId}/technicians/${
                 email && email
               }`}
               variant='h6'
@@ -93,10 +95,10 @@ const TechPageHeader = ({
 };
 
 TechPageHeader.propTypes = {
-  // email: PropTypes.string.isRequired,
-  // name: PropTypes.string.isRequired,
-  handleClose: PropTypes.func,
+  email: PropTypes.string,
+  name: PropTypes.string,
   token: PropTypes.string,
+  studioId: PropTypes.string,
 };
 
 export default TechPageHeader;
