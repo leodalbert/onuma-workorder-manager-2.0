@@ -41,6 +41,7 @@ export const workOrderRequestFieldGen = (workOrder) => {
     due_date,
     assigned_trade,
     maintenance_procedure_description,
+    status,
   } = workOrder;
 
   let FIELDS = [];
@@ -62,6 +63,11 @@ export const workOrderRequestFieldGen = (workOrder) => {
       lable: 'Due date:',
       detail: dayjs(due_date).format('MM/DD/YYYY'),
       detailColor: 'detailRed',
+    });
+  status &&
+    FIELDS.push({
+      lable: 'Workorder status:',
+      detail: status,
     });
 
   request_email &&

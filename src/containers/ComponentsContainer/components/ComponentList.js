@@ -100,7 +100,6 @@ const ComponentList = ({
 
   const handleOpenComponentDialog = (component) => {
     fillComponentDialog(component);
-    console.log(component);
     setOpenDetailDialog(true);
   };
 
