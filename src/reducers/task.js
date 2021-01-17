@@ -5,6 +5,7 @@ import {
   ADD_TASK,
   GET_WORKORDER,
   UPDATE_WORKORDER_TASK,
+  CLEAR_WORKORDER_STATE,
 } from 'actions/types';
 
 export const initialState = {
@@ -38,6 +39,8 @@ const Task = (state = initialState, action) =>
       case ADD_TASK:
         draft.workorderTasks.push(payload);
         break;
+      case CLEAR_WORKORDER_STATE:
+        return { ...initialState };
       default:
         break;
     }

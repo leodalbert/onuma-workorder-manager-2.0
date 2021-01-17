@@ -6,6 +6,8 @@ axios.defaults.headers.common = {
   Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
 };
 
+// TODO - is baseURL required?
+
 const network = () => {
   const baseUrl = BASE_URL;
   const headers = {
@@ -33,10 +35,10 @@ const network = () => {
   };
 
   // Get all work orders by tech Id
-  const getAllWorkordersByTech = (studioId, techId) => {
+  const getAllWorkordersByTech = (techId, studioId) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status,collaborators.collaborator&filter[collaborators.collaborator][in]=${techId}&filter[assigned_technician.id][in]=${techId}&filter[assigned_technician.id][logical]=or`,
+      `/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status,collaborators.collaborator&filter[collaborators.collaborator][in]=${techId}&filter[assigned_technician.id][in]=${techId}&filter[assigned_technician.id][logical]=or`,
       config
     );
   };

@@ -3,6 +3,7 @@ import {
   GET_WORKORDER,
   SEND_COMMENT_TO_REQUESTOR,
   CHANGE_WORKORDER_STATUS,
+  CLEAR_WORKORDER_STATE,
 } from 'actions/types';
 
 export const initialState = {
@@ -47,6 +48,8 @@ const WorkOrder = (state = initialState, action) =>
       case CHANGE_WORKORDER_STATUS:
         draft.status = payload;
         break;
+      case CLEAR_WORKORDER_STATE:
+        return { ...initialState };
       default:
         break;
     }

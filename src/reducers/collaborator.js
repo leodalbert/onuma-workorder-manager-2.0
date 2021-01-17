@@ -3,6 +3,7 @@ import {
   GET_WORKORDER,
   ADD_COLLABORATOR,
   REMOVE_COLLABORATOR,
+  CLEAR_WORKORDER_STATE,
 } from 'actions/types';
 
 export const initialState = {
@@ -24,6 +25,9 @@ const Tech = (state = initialState, action) =>
         draft.collaborators = draft.collaborators.filter(
           (collaborator) => collaborator.id !== payload
         );
+        break;
+      case CLEAR_WORKORDER_STATE:
+        draft.collaborators = initialState.collaborators;
         break;
       default:
         break;

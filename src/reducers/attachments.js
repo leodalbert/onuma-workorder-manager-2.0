@@ -3,6 +3,7 @@ import {
   DELETE_ATTACHMENT,
   GET_WORKORDER_FILES,
   ADD_WORKORDER_FILE,
+  CLEAR_WORKORDER_STATE,
 } from 'actions/types';
 
 export const initialState = {
@@ -22,6 +23,9 @@ const attachments = (state = initialState, action) =>
         break;
       case DELETE_ATTACHMENT:
         draft.files = draft.files.filter((file) => file.id !== payload);
+        break;
+      case CLEAR_WORKORDER_STATE:
+        draft.files = initialState.files;
         break;
       default:
         break;

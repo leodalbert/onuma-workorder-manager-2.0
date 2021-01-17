@@ -9,6 +9,7 @@ import {
   SEARCH_COMPONENTS,
   SEARCH_LOADING,
   ADD_COMPONENT,
+  CLEAR_WORKORDER_STATE,
 } from 'actions/types';
 
 export const initialState = {
@@ -67,6 +68,8 @@ const Components = (state = initialState, action) =>
       case SEARCH_LOADING:
         draft.searchLoading = true;
         break;
+      case CLEAR_WORKORDER_STATE:
+        return { ...initialState };
       default:
         break;
     }

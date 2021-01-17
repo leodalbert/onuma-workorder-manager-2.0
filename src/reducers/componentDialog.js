@@ -1,6 +1,7 @@
 import {
   FILL_DIALOG_COMPONENT,
   CLEAR_DIALOG_COMPONENT,
+  CLEAR_WORKORDER_STATE,
 } from '../actions/types';
 
 export const initialState = {
@@ -112,6 +113,7 @@ const componentDialog = (state = initialState, action) => {
         attachments: data.attachments || attachments,
       };
     case CLEAR_DIALOG_COMPONENT:
+    case CLEAR_WORKORDER_STATE:
       return {
         ...initialState,
       };

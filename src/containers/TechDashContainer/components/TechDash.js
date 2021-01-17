@@ -1,31 +1,87 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, Fragment, useReducer } from 'react';
 import PropTypes from 'prop-types';
+import { Container } from '@material-ui/core';
 
-const TechDash = ({ setUrlParams, getCurrentTech, match: { params } }) => {
-  // set url params to state
+import DashboardTable from 'containers/DashboardTableContainer.js';
+import Spinner from 'components/Common/Spinner';
+import WorkorderFilterSelect from 'components/Common/WorkorderFilterSelect';
+import { getVisibleWorkorders } from 'utils/HelperFunctions';
+
+const initialFilterState = {
+  filter: 'active',
+  filteredWorkorders: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'setFilter':
+      return {
+        ...state,
+        filter: action.payload,
+      };
+    case 'setFilteredWorkorders':
+      return {
+        ...state,
+        filteredWorkorders: action.payload,
+      };
+    default:
+      throw new Error('Unexpected action');
+  }
+};
+
+const TechDash = (props) => {
+  const {
+    clearWorkorderState,
+    getAllWorkOrders,
+    techId,
+    match: {
+      params: { studioId, techEmail },
+    },
+    workorders,
+  } = props;
+  const [filterReducer, dispatch] = useReducer(reducer, initialFilterState);
+
+  // Clear state from individual workorder
   useEffect(() => {
-    console.count('setparams');
-    setUrlParams({ ...params });
-  }, [params, setUrlParams]);
+    clearWorkorderState();
+  }, [clearWorkorderState]);
 
-  // API request to get current tech
+  // get all workorders that are assigned to, or have listed as a collaborator, current tech
   useEffect(() => {
-    getCurrentTech(params.techEmail, params.studioId);
-  }, [params.techEmail, getCurrentTech, params.studioId]);
+    getAllWorkOrders(techId, studioId);
+  }, [getAllWorkOrders, techId, studioId]);
 
-  return (
-    <div>
-      {console.count('test')}
-      test
-    </div>
+  useEffect(() => {
+    dispatch({
+      type: 'setFilteredWorkorders',
+      payload: getVisibleWorkorders(workorders, filterReducer.filter),
+    });
+  }, [workorders, filterReducer.filter]);
+
+  return workorders.length === 0 ? (
+    <Spinner />
+  ) : (
+    <Fragment>
+      <WorkorderFilterSelect
+        filter={filterReducer.filter}
+        dispatch={dispatch}
+      />
+      <Container>
+        <DashboardTable
+          workorders={filterReducer.filteredWorkorders}
+          email={techEmail}
+          techId={techId}
+        />
+      </Container>
+    </Fragment>
   );
 };
 
 TechDash.propTypes = {
-  setUrlParams: PropTypes.func.isRequired,
-  getCurrentTech: PropTypes.func.isRequired,
-  techEmail: PropTypes.string,
+  clearWorkorderState: PropTypes.func.isRequired,
+  getAllWorkOrders: PropTypes.func.isRequired,
+  techId: PropTypes.number,
   match: PropTypes.object.isRequired,
 };
 
-export default memo(TechDash);
+export default TechDash;

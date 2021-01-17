@@ -1,5 +1,9 @@
 import produce from 'immer';
-import { SET_SPACE_INFO, SET_SPACE_FLOOR_ID } from 'actions/types';
+import {
+  SET_SPACE_INFO,
+  SET_SPACE_FLOOR_ID,
+  CLEAR_WORKORDER_STATE,
+} from 'actions/types';
 
 export const initialState = {
   siteId: undefined,
@@ -23,6 +27,8 @@ const space = (state = initialState, action) =>
       case SET_SPACE_FLOOR_ID:
         draft.floorId = payload.floorId;
         break;
+      case CLEAR_WORKORDER_STATE:
+        return { ...initialState };
       default:
         break;
     }

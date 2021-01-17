@@ -41,12 +41,11 @@ export const sessionLogin = (
 ) => async (dispatch) => {
   dispatch({ type: AUTH_LOADING });
   try {
+    const res = await network.startSession(token, email, studioId);
     // get current tech and all techs in siteGroup if tech workorder
     if (isTech) {
       dispatch(getCurrentTech(email, studioId));
     }
-
-    const res = await network.startSession(token, email, studioId);
     if (res.request.responseURL.includes('login')) {
       dispatch({ type: REDIRECT, payload: pathname });
       // if in dev skip redirect auth flow
