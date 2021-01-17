@@ -17,7 +17,6 @@ const AttachmentPage = ({
   const handleDelete = (id) => {
     deleteAttachment(id, studioId);
   };
-  console.count('attachments');
 
   return (
     <Grid container alignItems='stretch' spacing={2}>

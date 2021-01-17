@@ -33,18 +33,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TechPageHeader = (props) => {
-  const {
-    match: {
-      params: { studioId },
-    },
-    token,
-    name,
-    email,
-    logout,
-    history,
-  } = props;
-  console.log(props);
+const TechPageHeader = ({
+  match: {
+    params: { studioId },
+  },
+  token,
+  name,
+  email,
+  logout,
+  history,
+}) => {
   const classes = useStyles();
   const isWorkorder = !(
     useLocation().pathname.split('/').slice(-2)[0] === 'technicians'
