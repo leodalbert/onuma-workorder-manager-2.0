@@ -6,6 +6,7 @@ import { initialState } from 'reducers/auth';
  */
 export const selectAuth = (state) => state.auth || initialState;
 export const selectAuthToken = (state) => selectAuth(state).token;
+export const selectAuthUser = (state) => selectAuth(state).user;
 export const selectAuthRedirect = (state) => selectAuth(state).redirect;
 export const selectAuthLoading = (state) => selectAuth(state).authLoading;
 export const selectIsAuth = (state) => selectAuth(state).isAuthenticated;

@@ -52,6 +52,7 @@ export const PrivateRoute = ({
             params.studioId,
             params.requesterEmail,
             params.token,
+            null,
             params.id,
             false
           );
@@ -62,6 +63,7 @@ export const PrivateRoute = ({
             params.studioId,
             params.requesterEmail,
             cookie.token,
+            null,
             params.id,
             false
           );
@@ -83,6 +85,7 @@ export const PrivateRoute = ({
             params.techEmail,
             params.token,
             pathname,
+            null,
             true
           );
           // handle login for technician page - handle login if no token in url from local cookie (refreshing page ect...)
@@ -93,6 +96,7 @@ export const PrivateRoute = ({
             params.techEmail,
             cookie.token,
             pathname,
+            null,
             true
           );
         } else {

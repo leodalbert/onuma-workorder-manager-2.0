@@ -4,6 +4,7 @@ import PrivateRoute from 'components/Routes/PrivateRoute';
 
 import TechDash from 'containers/TechDashContainer';
 import WorkOrder from 'containers/WorkOrderContainer';
+import StatusPage from 'containers/StatusPageContainer';
 import Header from 'containers/HeaderContainer';
 import LogoutPage from 'components/Common/LogoutPage';
 
@@ -22,6 +23,11 @@ const Navigation = () => {
             exact
             path={`${process.env.PUBLIC_URL}/:studioId/technicians/workorder/:id/:techEmail/:token?`}
             component={WorkOrder}
+          />
+          <PrivateRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/:studioId/requester/workorder/:id/:requesterEmail/:token?`}
+            component={StatusPage}
           />
           <Route
             exact

@@ -39,25 +39,37 @@ export const sessionLogin = (
   email,
   token,
   pathname,
+  workorder,
   isTech
 ) => async (dispatch) => {
   dispatch({ type: AUTH_LOADING });
   try {
-    const res = await network.startSession(token, email, studioId);
-    // get current tech and all techs in siteGroup if tech workorder
     if (isTech) {
+      const res = await network.startSession(token, email, studioId);
+
+      // get current tech and all techs in siteGroup if tech workorder
       dispatch(getCurrentTech(email, studioId));
-    }
-    if (res.request.responseURL.includes('login')) {
-      dispatch({ type: REDIRECT, payload: pathname });
-      // if in dev skip redirect auth flow
-      // if (inDev()) {
-      //   Cookies.set('onumaLocal', btoa(JSON.stringify({ techEmail, token })));
-      //   dispatch({ type: LOGIN_SUCCESS, payload: techEmail });
-      // }
+
+      if (res.request.responseURL.includes('login')) {
+        dispatch({ type: REDIRECT, payload: pathname });
+      } else {
+        Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
+        dispatch({ type: LOGIN_SUCCESS, payload: email });
+      }
     } else {
-      Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
-      dispatch({ type: LOGIN_SUCCESS, payload: email });
+      const res = await network.startRequesterSession(
+        token,
+        email,
+        studioId,
+        workorder
+      );
+
+      if (res.request.responseURL.includes('login')) {
+        dispatch({ type: REDIRECT, payload: pathname });
+      } else {
+        Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
+        dispatch({ type: LOGIN_SUCCESS, payload: email });
+      }
     }
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });

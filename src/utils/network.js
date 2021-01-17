@@ -22,6 +22,14 @@ const network = () => {
     );
   };
 
+  // Start Requester Cookie Session
+  const startRequesterSession = (token, email, studioId, workorder) => {
+    const uninterceptedAxiosInstance = axios.create();
+    return uninterceptedAxiosInstance.get(
+      `${baseUrl}/${studioId}/actions/start-requester-session?token=${token}&email=${email}&workorder_id=${workorder}`
+    );
+  };
+
   // Refresh session cookie
   const refreshSession = (studioId, techEmail, token) => {
     return axios.get(
@@ -330,6 +338,7 @@ const network = () => {
   };
   return {
     startSession,
+    startRequesterSession,
     refreshSession,
     logout,
     getAllWorkordersByTech,

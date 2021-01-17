@@ -13,7 +13,7 @@ const Header = ({ ...rest }) => {
       />
       <Route
         path={`${process.env.PUBLIC_URL}/:studioId/requester`}
-        component={StatusPageHeader}
+        render={(props) => <StatusPageHeader {...props} {...rest} />}
       />
     </Switch>
   );

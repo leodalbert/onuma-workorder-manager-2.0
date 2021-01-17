@@ -10,7 +10,8 @@
 
 # production
 /build
-/rt
+/rt2
+/.vscode
 
 # misc
 .DS_Store
