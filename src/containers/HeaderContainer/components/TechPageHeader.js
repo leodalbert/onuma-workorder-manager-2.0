@@ -6,6 +6,7 @@ import { IconButton, Typography, Toolbar, AppBar } from '@material-ui/core';
 import FormatListBulletedRoundedIcon from '@material-ui/icons/FormatListBulletedRounded';
 
 import HelpIcon from 'assets/HelpIcon';
+import LogoutIcon from 'assets/LogoutIcon';
 import logo from 'assets/BIM_GENIE_GREEN_100p.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,14 +33,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TechPageHeader = ({
-  match: {
-    params: { studioId },
-  },
-  token,
-  name,
-  email,
-}) => {
+const TechPageHeader = (props) => {
+  const {
+    match: {
+      params: { studioId },
+    },
+    token,
+    name,
+    email,
+    logout,
+    history,
+  } = props;
+  console.log(props);
   const classes = useStyles();
   const isWorkorder = !(
     useLocation().pathname.split('/').slice(-2)[0] === 'technicians'
@@ -53,6 +58,11 @@ const TechPageHeader = ({
       'toolbar=no, menubar=no, resizable=no, width=400,height=500, top=300, left=300'
     );
   };
+  const handleLogout = () => {
+    logout();
+    history.push(`${process.env.PUBLIC_URL}/${studioId}/logout`);
+  };
+
   return (
     <div data-testid='tech-header'>
       <AppBar position='static'>
@@ -68,6 +78,11 @@ const TechPageHeader = ({
                   email && email
                 }`}>
                 <FormatListBulletedRoundedIcon style={{ fontSize: 40 }} />
+              </IconButton>
+            )}
+            {!isWorkorder && token && (
+              <IconButton onClick={handleLogout} color='inherit'>
+                <LogoutIcon />
               </IconButton>
             )}
             <Typography
@@ -99,6 +114,9 @@ TechPageHeader.propTypes = {
   name: PropTypes.string,
   token: PropTypes.string,
   studioId: PropTypes.string,
+  logout: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default TechPageHeader;

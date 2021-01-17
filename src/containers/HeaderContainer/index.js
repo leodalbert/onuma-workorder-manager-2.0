@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Header from './components/Header';
+import { logout } from 'actions/auth';
 import {
   selectTechToken,
   selectTechName,
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => ({
   email: selectTechEmail(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { logout };
 
 const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
 

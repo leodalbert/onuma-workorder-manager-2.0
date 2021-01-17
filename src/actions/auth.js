@@ -8,12 +8,14 @@ import {
   SET_AUTH_TOKEN,
   AUTH_LOADING,
   REDIRECT,
+  CLEAR_WORKORDER_STATE,
 } from './types';
 
 // log out user and destroy cookie
 export const logout = () => async (dispatch) => {
   await network.logout();
   dispatch({ type: LOGOUT });
+  dispatch({ type: CLEAR_WORKORDER_STATE });
 };
 
 // set token from url
