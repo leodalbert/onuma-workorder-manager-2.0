@@ -64,8 +64,7 @@ const componentDialog = (state = initialState, action) => {
         instance_attributes,
         attachments,
       } = initialState;
-      let data = payload;
-      //TODO test for no space of component_type
+      let data = Object.assign({}, payload);
       if (!payload.component_type) {
         data.component_type = {};
       }

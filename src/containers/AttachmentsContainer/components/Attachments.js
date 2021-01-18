@@ -17,7 +17,6 @@ const AttachmentPage = ({
   const handleDelete = (id) => {
     deleteAttachment(id, studioId);
   };
-
   return (
     <Grid container alignItems='stretch' spacing={2}>
       {files &&
@@ -61,7 +60,7 @@ AttachmentPage.propTypes = {
   files: PropTypes.array.isRequired,
   studioId: PropTypes.string.isRequired,
   workorderId: PropTypes.number,
-  techId: PropTypes.number.isRequired,
+  techId: PropTypes.number,
   deleteAttachment: PropTypes.func.isRequired,
 };
 
