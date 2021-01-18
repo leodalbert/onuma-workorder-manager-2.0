@@ -4,6 +4,9 @@ import {
   SEND_COMMENT_TO_REQUESTOR,
   CHANGE_WORKORDER_STATUS,
   CLEAR_WORKORDER_STATE,
+  GET_ALL_SPACES,
+  SET_WORKORDER_LOADING,
+  SET_STATUS,
 } from 'actions/types';
 
 export const initialState = {
@@ -22,6 +25,7 @@ export const initialState = {
   maintenance_procedures: [],
   token: '',
   request_email_cc: '',
+  siteBuildings: [],
   loading: true,
 };
 
@@ -45,11 +49,18 @@ const WorkOrder = (state = initialState, action) =>
       case SEND_COMMENT_TO_REQUESTOR:
         draft.administrator_comment = payload;
         break;
+      case GET_ALL_SPACES:
+        draft.siteBuildings = payload;
+        break;
       case CHANGE_WORKORDER_STATUS:
+      case SET_STATUS:
         draft.status = payload;
         break;
       case CLEAR_WORKORDER_STATE:
         return { ...initialState };
+      case SET_WORKORDER_LOADING:
+        draft.loading = true;
+        break;
       default:
         break;
     }

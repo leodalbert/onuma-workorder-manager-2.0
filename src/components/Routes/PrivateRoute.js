@@ -9,11 +9,11 @@ import { logout, sessionLogin, sessionResume, setToken } from 'actions/auth';
 import { getCurrentTech } from 'actions/tech';
 import {
   selectAuthToken,
+  selectAuthUser,
   selectAuthLoading,
   selectIsAuth,
   selectAuthRedirect,
 } from 'Selectors/auth';
-import { selectTechEmail } from 'Selectors/tech';
 import useInterval from 'hooks/useInterval';
 import Spinner from 'components/Common/Spinner';
 
@@ -28,7 +28,7 @@ export const PrivateRoute = ({
   sessionResume,
   login,
   logout,
-  techEmail,
+  user,
   getCurrentTech,
   setToken,
   location: { pathname },
@@ -141,11 +141,11 @@ export const PrivateRoute = ({
     <Route
       {...rest}
       component={(props) =>
-        isAuth && techEmail ? (
+        isAuth && user ? (
           <div>
             <Component {...props} />
           </div>
-        ) : authLoading || !techEmail || params.token ? (
+        ) : authLoading || !user || params.token ? (
           <Spinner />
         ) : (
           <Container style={{ marginTop: '20px', textAlign: 'center' }}>
@@ -174,7 +174,7 @@ PrivateRoute.propRypes = {
   sessionResume: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  techEmail: PropTypes.string,
+  user: PropTypes.string,
   getCurrentTech: PropTypes.func.isRequired,
   setToken: PropTypes.func.isRequired,
   location: PropTypes.object,
@@ -187,7 +187,7 @@ const mapStateToProps = (state) => ({
   isAuth: selectIsAuth(state),
   redirect: selectAuthRedirect(state),
   authLoading: selectAuthLoading(state),
-  techEmail: selectTechEmail(state),
+  user: selectAuthUser(state),
 });
 
 export default connect(mapStateToProps, {

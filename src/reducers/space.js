@@ -11,6 +11,7 @@ export const initialState = {
   floorId: 0,
   spaceId: undefined,
   spaceName: '',
+  location_description: '',
 };
 
 /* eslint-disable no-param-reassign */

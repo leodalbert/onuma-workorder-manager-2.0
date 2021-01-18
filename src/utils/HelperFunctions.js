@@ -363,3 +363,84 @@ export const getVisibleWorkorders = (workorders, filter) => {
     return workorders;
   });
 };
+
+//  function to generate location fields for status page
+export const locationFieldGen = (workorder) => {
+  const { floor, building, space, location_description } = workorder;
+  return [
+    building.number && `${building.number} - `,
+    `${building.name}`,
+    !!floor && <br key='1' />,
+    !!floor &&
+      (!!floor.name
+        ? `${floor.name}`
+        : `Floor ${floor.number >= 0 ? floor.number + 1 : floor.number}`),
+    !!space && <br key='2' />,
+    !!space && space.number && space.number,
+    ' ',
+    !!space && space.number && space.name && '- ',
+    !!space && space.name && space.name,
+    location_description && <br key='3' />,
+    location_description && location_description,
+  ];
+};
+
+// function to generate list of fields status page pt 1
+
+export const statusWorkOrderFieldGen1 = (workOrder) => {
+  const {
+    request_number,
+    request_date,
+    assigned_priority,
+    due_date,
+  } = workOrder;
+
+  let FIELDS = [];
+  request_number &&
+    FIELDS.push({ lable: 'Request number:', detail: request_number });
+  request_date &&
+    FIELDS.push({
+      lable: 'Request date:',
+      detail: dayjs(request_date).format('MM/DD/YYYY h:m A'),
+    });
+  assigned_priority &&
+    FIELDS.push({
+      lable: 'Priority:',
+      detail: priority(assigned_priority),
+      detailColor: assigned_priority === 1 && 'redDetail',
+    });
+  due_date &&
+    FIELDS.push({
+      lable: 'Due date:',
+      detail: dayjs(due_date).format('MM/DD/YYYY'),
+      detailColor: 'detailRed',
+    });
+  return FIELDS;
+};
+
+// function to generate list of fields status page pt 2
+
+export const statusWorkOrderFieldGen2 = (workorder) => {
+  console.log(workorder);
+  const { status, status_modification_date, administrator_comment } = workorder;
+
+  let FIELDS = [];
+  status &&
+    FIELDS.push({
+      lable: 'Workorder status:',
+      detail: status,
+    });
+  status_modification_date &&
+    FIELDS.push({
+      lable: 'Status changed on:',
+      detail: dayjs(status_modification_date).format('MM/DD/YYYY'),
+    });
+
+  administrator_comment &&
+    FIELDS.push({
+      lable: 'Help desk comments:',
+      detail: administrator_comment,
+    });
+
+  return FIELDS;
+};

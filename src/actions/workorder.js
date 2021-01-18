@@ -12,6 +12,9 @@ import {
   SET_SPACE_FLOOR_ID,
   SEND_COMMENT_TO_REQUESTOR,
   CHANGE_WORKORDER_STATUS,
+  GET_ALL_SPACES,
+  SET_WORKORDER_LOADING,
+  SET_STATUS,
 } from 'actions/types';
 
 // Get floor 0 id of building
@@ -51,6 +54,9 @@ export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
       // get space components if there is a spaceId
       dispatch(getSpaceComponents(workorder.space.id, studioId));
     }
+    if (workorder.location_description) {
+      buildingInfo.location_description = workorder.location_description;
+    }
     if (workorder.floor) {
       buildingInfo.floorId = workorder.floor.id;
     } else {
@@ -59,6 +65,83 @@ export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
     dispatch({ type: SET_SPACE_INFO, payload: buildingInfo });
 
     dispatch(getWorkorderFiles(workorderId, studioId));
+    dispatch({ type: GET_WORKORDER, payload: workorder });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+// Get requester page Work order by work order Id
+export const getRequesterWorkOrder = (workorderId, studioId) => async (
+  dispatch
+) => {
+  try {
+    const res = await network.getWorkOrderStatusDetails(workorderId, studioId);
+    let workorder = res.data;
+
+    // create object with buidling info if availible
+    let buildingInfo = {};
+    buildingInfo.siteId = workorder.building.site;
+    buildingInfo.buildingId = workorder.building.id;
+
+    if (workorder.space) {
+      buildingInfo.spaceId = workorder.space.id;
+      buildingInfo.spaceName = workorder.space.name;
+      buildingInfo.spaceNumber = workorder.space.number;
+    }
+    if (workorder.location_description) {
+      buildingInfo.location_description = workorder.location_description;
+    }
+    if (workorder.floor) {
+      buildingInfo.floorId = workorder.floor.id;
+      buildingInfo.floorName = workorder.floor.name;
+      buildingInfo.floorNumber = workorder.floor.number;
+    } else {
+      dispatch(getFloorId(buildingInfo.buildingId, studioId));
+    }
+    dispatch(getAllSpaces(buildingInfo.siteId, studioId));
+    dispatch({ type: SET_SPACE_INFO, payload: buildingInfo });
+
+    dispatch({ type: GET_WORKORDER, payload: workorder });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// patch workorker location and request description updates
+export const updateWorkorder = (studioId, workorderId, updatedObj) => async (
+  dispatch
+) => {
+  dispatch(setWorkorderLoading());
+  try {
+    const res = await network.updateStatusPageWorkorder(
+      studioId,
+      workorderId,
+      updatedObj
+    );
+    const workorder = res.data;
+    // create object with buidling info if availible
+    let buildingInfo = {};
+    buildingInfo.siteId = workorder.building.site;
+    buildingInfo.buildingId = workorder.building.id;
+    buildingInfo.buildingName = workorder.building.name;
+
+    if (workorder.space) {
+      buildingInfo.spaceId = workorder.space.id;
+      buildingInfo.spaceName = workorder.space.name;
+      buildingInfo.spaceNumber = workorder.space.number;
+    }
+    if (workorder.location_description) {
+      buildingInfo.location_description = workorder.location_description;
+    }
+    if (workorder.floor) {
+      buildingInfo.floorId = workorder.floor.id;
+      buildingInfo.floorName = workorder.floor.name;
+      buildingInfo.floorNumber = workorder.floor.number;
+    } else {
+      dispatch(getFloorId(buildingInfo.buildingId, studioId));
+    }
+    dispatch({ type: SET_SPACE_INFO, payload: buildingInfo });
+
     dispatch({ type: GET_WORKORDER, payload: workorder });
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });
@@ -124,3 +207,31 @@ export const patchWorkorderWithFile = (id, studioId, workorderId) => async (
     dispatch({ type: LOGIN_FAIL });
   }
 };
+
+// Get spaces by site
+export const getAllSpaces = (siteId, studioId) => async (dispatch) => {
+  try {
+    const res = await network.getAllSpaces(siteId, studioId);
+    dispatch({
+      type: GET_ALL_SPACES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// Patch work order status Change with optional confirmation decline text
+export const setStatus = (workorderId, statusObj, studioId) => async (
+  dispatch
+) => {
+  try {
+    dispatch({ type: SET_STATUS, payload: statusObj.status });
+    await network.setStatus(workorderId, statusObj, studioId);
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// set workorder loading
+export const setWorkorderLoading = () => ({ type: SET_WORKORDER_LOADING });

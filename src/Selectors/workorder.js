@@ -25,6 +25,12 @@ export const selectWorkorderSpaceName = (state) =>
 export const selectWorkorderBuildingName = (state) =>
   selectWorkorder(state).building.name;
 
+export const selectRequestEmail = (state) =>
+  selectWorkorder(state).request_email;
+
+export const selectSiteBuildings = (state) =>
+  selectWorkorder(state).siteBuildings;
+
 export const selectWorkorderStatus = (state) => selectWorkorder(state).status;
 
 export const makeSelectWorkorder = createSelector(

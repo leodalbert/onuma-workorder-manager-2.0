@@ -16,7 +16,15 @@ const network = () => {
 
   // Start Cookie Session
   const startSession = (token, email, studioId) => {
-    const uninterceptedAxiosInstance = axios.create();
+    const uninterceptedAxiosInstance = axios.create({
+      // remove auth header for start session request (only affects dev)
+      transformRequest: [
+        (data, headers) => {
+          delete headers.common.Authorization;
+          return data;
+        },
+      ],
+    });
     return uninterceptedAxiosInstance.get(
       `${baseUrl}/${studioId}/actions/start-technician-session?token=${token}&email=${email}`
     );
