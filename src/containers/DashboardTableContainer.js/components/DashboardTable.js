@@ -74,7 +74,6 @@ const SummaryTable = ({
           size='medium'
           aria-label='enhanced table'>
           <SummaryHead
-            classes={classes}
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
