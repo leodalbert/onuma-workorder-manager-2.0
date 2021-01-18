@@ -16,6 +16,7 @@ const ComponentButtonGroup = ({
   handleOpenComponentDialog,
   setOpenDeleteAlert,
   setDeleteComponent,
+  readOnly,
 }) => {
   const classes = useStyles();
 
@@ -38,12 +39,14 @@ const ComponentButtonGroup = ({
         {component.name +
           (component.instance_name && ` -  ${component.instance_name}`)}
       </Button>
-      <Button
-        style={{ width: '36px' }}
-        onClick={handleClickDelete}
-        size='small'>
-        <ClearIcon fontSize='small' />
-      </Button>
+      {!readOnly && (
+        <Button
+          style={{ width: '36px' }}
+          onClick={handleClickDelete}
+          size='small'>
+          <ClearIcon fontSize='small' />
+        </Button>
+      )}
     </ButtonGroup>
   );
 };

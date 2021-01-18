@@ -37,6 +37,7 @@ const RequestDetails = ({
   workorder,
   sendCommentToRequestor,
   space: { siteId, buildingId, floorId, spaceId },
+  readOnly,
 }) => {
   const classes = useStyles();
   const [openPmDialog, setOpenPmDialog] = useState(false);
@@ -101,10 +102,11 @@ const RequestDetails = ({
           studioId={studioId}
           workorderId={workorder.id}
           sendCommentToRequestor={sendCommentToRequestor}
+          readOnly={readOnly}
         />
       </Grid>
       <Divider />
-      <Components studioId={studioId} />
+      <Components studioId={studioId} readOnly={readOnly} />
       <MaintenanceProcedureDialog
         open={openPmDialog}
         name={workorder.maintenance_procedure_name || 'Maintenance procedure'}

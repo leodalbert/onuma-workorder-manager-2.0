@@ -37,6 +37,7 @@ const Components = ({
   workorderId,
   dialogComponent,
   clearComponentDialog,
+  readOnly,
 }) => {
   const classes = useStyles();
 
@@ -56,11 +57,12 @@ const Components = ({
             addComponent={addComponent}
             removeComponent={removeComponent}
             clearComponentDialog={clearComponentDialog}
+            readOnly={readOnly}
           />
         </Grid>
       </Grid>
       <Grid item container direction='column' xs={12} lg={5}>
-        <ComponentSearch studioId={studioId} />
+        {!readOnly && <ComponentSearch studioId={studioId} />}
       </Grid>
     </Grid>
   );
@@ -78,6 +80,7 @@ Components.propTypes = {
   workorderId: PropTypes.number,
   dialogComponent: PropTypes.object,
   clearComponentDialog: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default memo(Components);

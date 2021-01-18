@@ -81,6 +81,7 @@ const ComponentList = ({
   clearComponentDialog,
   addComponent,
   removeComponent,
+  readOnly,
 }) => {
   const classes = useStyles();
 
@@ -143,6 +144,7 @@ const ComponentList = ({
               components={workOrderComponents}
               setOpenDeleteAlert={setOpenDeleteAlert}
               setDeleteComponent={setDeleteComponent}
+              readOnly={readOnly}
             />
           )}
           {componentLoading && (
@@ -151,10 +153,12 @@ const ComponentList = ({
             </div>
           )}
         </Grid>
-        <ComponentSelector
-          filteredComponents={filteredComponents}
-          handleAddComponent={handleAddComponent}
-        />
+        {!readOnly && (
+          <ComponentSelector
+            filteredComponents={filteredComponents}
+            handleAddComponent={handleAddComponent}
+          />
+        )}
       </Grid>
 
       <ComponentDetailDialog
@@ -190,6 +194,7 @@ ComponentList.propTypes = {
   clearComponentDialog: PropTypes.func.isRequired,
   addComponent: PropTypes.func.isRequired,
   removeComponent: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default memo(ComponentList);

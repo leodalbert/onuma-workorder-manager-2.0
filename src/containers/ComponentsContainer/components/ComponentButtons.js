@@ -8,6 +8,7 @@ const ComponentButtons = ({
   handleOpenComponentDialog,
   setOpenDeleteAlert,
   setDeleteComponent,
+  readOnly,
 }) => {
   return (
     <Fragment>
@@ -19,6 +20,7 @@ const ComponentButtons = ({
               setOpenDeleteAlert={setOpenDeleteAlert}
               setDeleteComponent={setDeleteComponent}
               handleOpenComponentDialog={handleOpenComponentDialog}
+              readOnly={readOnly}
             />
           </Grid>
         );
@@ -32,6 +34,7 @@ ComponentButtons.propTypes = {
   handleOpenComponentDialog: PropTypes.func.isRequired,
   setOpenDeleteAlert: PropTypes.func.isRequired,
   setDeleteComponent: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 const areEqual = (prevProps, nextProps) => {

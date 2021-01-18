@@ -44,6 +44,7 @@ const CommentTextBox = ({
   studioId,
   workorderId,
   sendCommentToRequestor,
+  readOnly,
 }) => {
   const classes = useStyles();
   const [comment, setComment] = useState(administrator_comment);
@@ -53,6 +54,7 @@ const CommentTextBox = ({
         <Grid item container spacing={3} justify='flex-end'>
           <Grid item xs={12} sm={8} style={{ margin: '12px 0px' }}>
             <TextField
+              disabled={readOnly}
               className={classes.commentField}
               id='commentField'
               label='Comments To Requester'
@@ -74,13 +76,15 @@ const CommentTextBox = ({
         </Grid>
       </Grid>
       <Grid className={classes.commentBtnCtr} item xs={12} lg={3}>
-        <ActionBtn
-          handleClick={() =>
-            sendCommentToRequestor(comment, studioId, workorderId)
-          }
-          disabled={comment === administrator_comment}>
-          Save + Send
-        </ActionBtn>
+        {!readOnly && (
+          <ActionBtn
+            handleClick={() =>
+              sendCommentToRequestor(comment, studioId, workorderId)
+            }
+            disabled={comment === administrator_comment}>
+            Save + Send
+          </ActionBtn>
+        )}
       </Grid>
     </Fragment>
   );
@@ -91,6 +95,7 @@ CommentTextBox.propTypes = {
   studioId: PropTypes.string,
   workorderId: PropTypes.number,
   sendCommentToRequestor: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default memo(CommentTextBox);

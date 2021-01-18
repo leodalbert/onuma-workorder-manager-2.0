@@ -13,6 +13,7 @@ const AttachmentPage = ({
   workorderId,
   techId,
   deleteAttachment,
+  readOnly,
 }) => {
   const handleDelete = (id) => {
     deleteAttachment(id, studioId);
@@ -45,12 +46,14 @@ const AttachmentPage = ({
           }
         })}
       <Grid style={{ textAlign: 'center' }} item xs={12}>
-        <DropZoneDialog
-          studioId={studioId}
-          workorderId={workorderId}
-          files={files}
-          techId={techId}
-        />
+        {!readOnly && (
+          <DropZoneDialog
+            studioId={studioId}
+            workorderId={workorderId}
+            files={files}
+            techId={techId}
+          />
+        )}
       </Grid>
     </Grid>
   );
@@ -62,6 +65,7 @@ AttachmentPage.propTypes = {
   workorderId: PropTypes.number,
   techId: PropTypes.number,
   deleteAttachment: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default AttachmentPage;
