@@ -11,6 +11,7 @@ import {
   selectWorkorderTechId,
   makeSelectWorkorderTechName,
 } from 'Selectors/workorder';
+import { workOrderStatusChange } from 'actions/workorder';
 import { addNewTask } from 'actions/task';
 
 const mapStateToProps = (state) => ({
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => ({
   allOtherTechs: makeSelectAllOtherTechs(state),
 });
 
-const mapDispatchToProps = { addNewTask };
+const mapDispatchToProps = { addNewTask, workOrderStatusChange };
 
 const TaskDetailsContainer = connect(
   mapStateToProps,

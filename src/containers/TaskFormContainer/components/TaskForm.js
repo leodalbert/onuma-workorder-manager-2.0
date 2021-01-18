@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import dayjs from 'dayjs';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,6 +49,7 @@ const TaskForm = ({
   workorderTechName,
   studioId,
   addNewTask,
+  workOrderStatusChange,
 }) => {
   const classes = useStyles();
   const [costs, setCosts] = useState([]);
@@ -134,10 +136,18 @@ const TaskForm = ({
           return setOpenCostAlert(true);
         }
 
-        // change workorder_status
+        // change workorder_status - only save status if there are no other changes to task form
         if (workorderStatus !== values.status) {
-          console.log(workorderId, values.status, studioId);
-          // workOrderStatusChange(workOrderId, workOrderStatus, studioId);
+          if (
+            _.isEqual(
+              _.omit(values, ['status', 'date']),
+              _.omit(initialFormValues, ['status', 'date'])
+            )
+          ) {
+            workOrderStatusChange(values.workorder, values.status, studioId);
+            return setOpenSaveAlert(false);
+          }
+          workOrderStatusChange(values.workorder, values.status, studioId);
         }
 
         // switch stays in whatever possition it was after submit
@@ -175,7 +185,7 @@ const TaskForm = ({
               <CostForm formik={formik} handleAddCost={handleAddCost} />
             </Grid>
             <WorkorderStatus
-              workorderStatus={workorderStatus}
+              workorderStatus={formik.values.status}
               workorderTechId={workorderTechId}
               techId={techId}
             />

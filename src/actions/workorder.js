@@ -188,7 +188,9 @@ export const workOrderStatusChange = (workorderId, status, studioId) => async (
 ) => {
   try {
     const res = await network.workOrderStatusChange(
-      (workorderId, status, studioId)
+      workorderId,
+      status,
+      studioId
     );
     dispatch({ type: CHANGE_WORKORDER_STATUS, payload: res.data.status });
   } catch (err) {

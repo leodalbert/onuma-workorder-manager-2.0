@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 const CustomRadioGroup = ({ children, form, field }) => {
   const { name, value } = field;
   const { setFieldValue } = form;
-
   return (
     <RadioGroup
       aria-label='workorder-status'
@@ -56,7 +55,6 @@ const CustomRadioGroup = ({ children, form, field }) => {
     </RadioGroup>
   );
 };
-
 const WorkOrderStatus = ({ workorderStatus, techId, workorderTechId }) => {
   const classes = useStyles();
   return (

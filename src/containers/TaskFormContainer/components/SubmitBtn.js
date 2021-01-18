@@ -50,6 +50,7 @@ const SubmitBtn = ({
             !values.mins &&
             !values.hrs &&
             !values.description &&
+            values.status === workorderStatus &&
             !(workorderStatus === 'Completed')
           }
           onClick={() => setOpenSaveAlert(true)}>

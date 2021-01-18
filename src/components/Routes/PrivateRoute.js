@@ -145,7 +145,7 @@ export const PrivateRoute = ({
           <div>
             <Component {...props} />
           </div>
-        ) : authLoading || !user || params.token ? (
+        ) : authLoading ? (
           <Spinner />
         ) : (
           <Container style={{ marginTop: '20px', textAlign: 'center' }}>
