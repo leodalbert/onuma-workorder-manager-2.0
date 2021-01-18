@@ -421,7 +421,6 @@ export const statusWorkOrderFieldGen1 = (workOrder) => {
 // function to generate list of fields status page pt 2
 
 export const statusWorkOrderFieldGen2 = (workorder) => {
-  console.log(workorder);
   const { status, status_modification_date, administrator_comment } = workorder;
 
   let FIELDS = [];

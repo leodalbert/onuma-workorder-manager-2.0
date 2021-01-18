@@ -54,7 +54,6 @@ export const StatusRequestDetailGrid1 = ({ workorder }) => {
   const classes = useStyles();
 
   const FIELDS = statusWorkOrderFieldGen1(workorder);
-  console.log(FIELDS);
 
   return _.map(FIELDS, ({ lable, detail, detailColor }) => {
     return (
@@ -85,7 +84,6 @@ export const StatusRequestDetailGrid2 = ({ workorder }) => {
   const classes = useStyles();
 
   const FIELDS = statusWorkOrderFieldGen2(workorder);
-  console.log(FIELDS);
 
   return _.map(FIELDS, ({ lable, detail, detailColor }) => {
     return (

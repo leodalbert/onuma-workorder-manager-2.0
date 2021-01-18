@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from 'components/Routes/PrivateRoute';
 
 import TechDash from 'containers/TechDashContainer';
+import RequesterDash from 'containers/RequesterDashContainer';
 import WorkOrder from 'containers/WorkOrderContainer';
 import StatusPage from 'containers/StatusPageContainer';
 import Header from 'containers/HeaderContainer';
@@ -18,6 +19,11 @@ const Navigation = () => {
             exact
             path={`${process.env.PUBLIC_URL}/:studioId/technicians/:techEmail`}
             component={TechDash}
+          />
+          <PrivateRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/:studioId/requester/:requesterEmail`}
+            component={RequesterDash}
           />
           <PrivateRoute
             exact

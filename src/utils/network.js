@@ -323,6 +323,23 @@ const network = () => {
     );
   };
 
+  // Get all workorders by requester email
+  const getAllWorkOrderRequestsByRequester = (requestEmail, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_email,collaborators.collaborator,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status&filter[request_email]=${requestEmail}`,
+      config
+    );
+  };
+  // Get all workorders by requester email CC
+  const getAllWorkOrderRequestsByRequesterCC = (requestEmail, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_email,collaborators.collaborator,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status&filter[request_email_cc][contains]=${requestEmail}`,
+      config
+    );
+  };
+
   //   Patch Workorker with location and request description updates
   const updateStatusPageWorkorder = (studioId, workorderId, updatedObj) => {
     const config = { headers };
@@ -377,6 +394,8 @@ const network = () => {
     getAllSpaces,
     getWorkOrderStatusDetails,
     updateStatusPageWorkorder,
+    getAllWorkOrderRequestsByRequester,
+    getAllWorkOrderRequestsByRequesterCC,
     setStatus,
   };
 };
