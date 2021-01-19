@@ -4,13 +4,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  spinnerDiv: {
-    position: 'relative',
-    top: '45%',
-    left: '45%',
-  },
   spinner: {
     color: theme.palette.secondary.main,
+    marginTop: '130px',
+    position: 'absolute',
   },
 }));
 
@@ -27,11 +24,10 @@ const FloorPlan = ({ studioId, siteId, buildingId, floorId, spaceId }) => {
   }, [floorId]);
   if (document.querySelector('onuma-plan')) {
     const el = document.querySelector('onuma-plan');
-    el.addEventListener('svgInitedEmitter', (event) => {
-      setisLoaded(event.returnValue);
+    el.addEventListener('svgInitedEmitter', () => {
+      setisLoaded(true);
     });
   }
-
   return (
     <div
       style={{
@@ -41,16 +37,18 @@ const FloorPlan = ({ studioId, siteId, buildingId, floorId, spaceId }) => {
         border: '1px solid lightgrey',
         margin: 'auto',
         overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
       }}
       className='floorplan-component'>
-      {!isLoaded && (
-        <div className={classes.spinnerDiv}>
-          <CircularProgress className={classes.spinner} />
-        </div>
-      )}
+      {!isLoaded && <CircularProgress className={classes.spinner} />}
       {scriptLoaded && floorId ? (
         <onuma-plan
-          style={{ height: '300px', width: '300px', background: 'lightgray' }}
+          style={{
+            height: '300px',
+            width: '100%',
+            position: 'inherit',
+          }}
           studio-id={studioId}
           site-id={siteId}
           building-id={buildingId}
