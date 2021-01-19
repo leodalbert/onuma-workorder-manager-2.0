@@ -53,6 +53,7 @@ export const getInitialWorkOrderComponentDetails = (
 ) => async (dispatch) => {
   let componentData = [];
   try {
+    dispatch({ type: SET_COMPONENT_LOADING, payload: true });
     // Todo change this to axios.all
     for (const component of components) {
       const res = await network.getWorkOrderComponentDetails(
