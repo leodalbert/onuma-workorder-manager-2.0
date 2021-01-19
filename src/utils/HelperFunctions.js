@@ -42,7 +42,9 @@ export const workOrderRequestFieldGen = (workOrder) => {
     assigned_trade,
     maintenance_procedure_description,
     status,
+    assigned_technician: { first_name, last_name },
   } = workOrder;
+  console.log(workOrder);
 
   let FIELDS = [];
   request_number &&
@@ -68,6 +70,12 @@ export const workOrderRequestFieldGen = (workOrder) => {
     FIELDS.push({
       lable: 'Workorder status:',
       detail: status,
+    });
+  first_name &&
+    last_name &&
+    FIELDS.push({
+      lable: 'Assigned technician:',
+      detail: `${first_name} ${last_name}`,
     });
 
   request_email &&
