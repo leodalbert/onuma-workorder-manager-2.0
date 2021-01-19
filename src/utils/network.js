@@ -32,7 +32,15 @@ const network = () => {
 
   // Start Requester Cookie Session
   const startRequesterSession = (token, email, studioId, workorder) => {
-    const uninterceptedAxiosInstance = axios.create();
+    const uninterceptedAxiosInstance = axios.create({
+      // remove auth header for start session request (only affects dev)
+      transformRequest: [
+        (data, headers) => {
+          delete headers.common.Authorization;
+          return data;
+        },
+      ],
+    });
     return uninterceptedAxiosInstance.get(
       `${baseUrl}/${studioId}/actions/start-requester-session?token=${token}&email=${email}&workorder_id=${workorder}`
     );
@@ -40,7 +48,15 @@ const network = () => {
 
   // Start CC Cookie Session
   const startCcSession = (email, studioId, workorder) => {
-    const uninterceptedAxiosInstance = axios.create();
+    const uninterceptedAxiosInstance = axios.create({
+      // remove auth header for start session request (only affects dev)
+      transformRequest: [
+        (data, headers) => {
+          delete headers.common.Authorization;
+          return data;
+        },
+      ],
+    });
     return uninterceptedAxiosInstance.get(
       `${baseUrl}/${studioId}/actions/start-cc-session?workorder=${workorder}&email=${email}`
     );

@@ -25,6 +25,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const shouldDisplay = (readOnly, workorderComponentIds) => {
+  if (readOnly) {
+    if (workorderComponentIds.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+};
+
 const Components = ({
   workorderComponentIds,
   workOrderComponents,
@@ -40,25 +52,26 @@ const Components = ({
   readOnly,
 }) => {
   const classes = useStyles();
-
   return (
     <Grid className={classes.marginTopL} item container xs={12}>
       <Grid item container direction='column' xs={12} lg={7}>
         <Grid item container spacing={3}>
-          <ComponentList
-            workorderComponentIds={workorderComponentIds}
-            spaceComponents={spaceComponents}
-            studioId={studioId}
-            workOrderComponents={workOrderComponents}
-            componentLoading={componentLoading}
-            workorderId={workorderId}
-            fillComponentDialog={fillComponentDialog}
-            dialogComponent={dialogComponent}
-            addComponent={addComponent}
-            removeComponent={removeComponent}
-            clearComponentDialog={clearComponentDialog}
-            readOnly={readOnly}
-          />
+          {shouldDisplay(readOnly, workorderComponentIds) && (
+            <ComponentList
+              workorderComponentIds={workorderComponentIds}
+              spaceComponents={spaceComponents}
+              studioId={studioId}
+              workOrderComponents={workOrderComponents}
+              componentLoading={componentLoading}
+              workorderId={workorderId}
+              fillComponentDialog={fillComponentDialog}
+              dialogComponent={dialogComponent}
+              addComponent={addComponent}
+              removeComponent={removeComponent}
+              clearComponentDialog={clearComponentDialog}
+              readOnly={readOnly}
+            />
+          )}
         </Grid>
       </Grid>
       <Grid item container direction='column' xs={12} lg={5}>

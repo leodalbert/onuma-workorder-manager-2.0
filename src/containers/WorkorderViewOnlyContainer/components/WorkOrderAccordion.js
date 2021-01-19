@@ -71,20 +71,25 @@ const WorkOrder = (props) => {
           </AccordionDetails>
         </Accordion>
       )}
-      <Accordion square defaultExpanded>
-        <AccordionSummary
-          className={classes.accordionHeader}
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls='attachment-content'
-          id='attachment-header'>
-          <Typography className={classes.accordionHeading}>
-            Attachments
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Attachments studioId={props.match.params.studioId} readOnly={true} />
-        </AccordionDetails>
-      </Accordion>
+      {props.files.length > 0 && (
+        <Accordion square defaultExpanded>
+          <AccordionSummary
+            className={classes.accordionHeader}
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls='attachment-content'
+            id='attachment-header'>
+            <Typography className={classes.accordionHeading}>
+              Attachments
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Attachments
+              studioId={props.match.params.studioId}
+              readOnly={true}
+            />
+          </AccordionDetails>
+        </Accordion>
+      )}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import {
   selectWorkorderStatus,
   makeSelectWorkorder,
 } from 'Selectors/workorder';
+import { selectWorkorderFiles } from 'Selectors/attachments';
 
 const mapStateToProps = (state) => ({
   space: selectSpace(state),
@@ -19,6 +20,7 @@ const mapStateToProps = (state) => ({
   workorder: makeSelectWorkorder(state),
   workorderId: selectWorkorderId(state),
   loading: selectWorkorderLoading(state),
+  files: selectWorkorderFiles(state),
 });
 
 const mapDispatchToProps = { getWorkOrderById, sendCommentToRequestor };
