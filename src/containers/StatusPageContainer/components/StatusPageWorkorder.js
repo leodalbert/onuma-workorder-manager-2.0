@@ -92,6 +92,12 @@ const StatusPageWorkorder = ({
   const [newDescription, setNewDescription] = useState('');
   const [topLocationState, setTopLocationState] = useState({});
   const initialLocationState = { floor, building, space, location_description };
+  if (initialLocationState.space === null) {
+    initialLocationState.space = '';
+  }
+  if (initialLocationState.floor === null) {
+    initialLocationState.floor = '';
+  }
 
   const handleClick = () => {
     if (edit) {
@@ -107,6 +113,7 @@ const StatusPageWorkorder = ({
       if (newDescription) {
         updateObj.request_description = newDescription;
       }
+      console.log(updateObj);
       if (!_.isEmpty(updateObj)) {
         updateWorkorder(studioId, workorderId, updateObj);
       }
