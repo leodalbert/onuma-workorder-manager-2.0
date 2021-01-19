@@ -38,6 +38,14 @@ const network = () => {
     );
   };
 
+  // Start CC Cookie Session
+  const startCcSession = (email, studioId, workorder) => {
+    const uninterceptedAxiosInstance = axios.create();
+    return uninterceptedAxiosInstance.get(
+      `${baseUrl}/${studioId}/actions/start-cc-session?workorder=${workorder}&email=${email}`
+    );
+  };
+
   // Refresh session cookie
   const refreshSession = (studioId, techEmail, token) => {
     return axios.get(
@@ -364,6 +372,7 @@ const network = () => {
   return {
     startSession,
     startRequesterSession,
+    startCcSession,
     refreshSession,
     logout,
     getAllWorkordersByTech,

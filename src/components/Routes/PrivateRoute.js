@@ -54,7 +54,7 @@ export const PrivateRoute = ({
             params.token,
             null,
             params.id,
-            false
+            'requester'
           );
           // handle login for requester page - handle login if no token in url from local cookie (refreshing page ect...)
         } else if (cookie && cookie.email === params.requesterEmail) {
@@ -65,12 +65,25 @@ export const PrivateRoute = ({
             cookie.token,
             null,
             params.id,
-            false
+            'requester'
           );
         } else {
           console.log('logout');
           logout();
         }
+      }
+    } else if (params.ccEmail) {
+      // handle login for cc page - initial token login
+      if (!isAuth && authLoading) {
+        console.log('start cc session');
+        sessionLogin(
+          params.studioId,
+          params.ccEmail,
+          null,
+          pathname,
+          params.id,
+          'cc'
+        );
       }
     } else {
       if (Cookies.get('onumaLocal')) {
@@ -86,18 +99,18 @@ export const PrivateRoute = ({
             params.token,
             pathname,
             null,
-            true
+            'tech'
           );
           // handle login for technician page - handle login if no token in url from local cookie (refreshing page ect...)
         } else if (cookie && cookie.email === params.techEmail) {
-          console.log('start tech session from cooke token');
+          console.log('start tech session from cookie token');
           sessionLogin(
             params.studioId,
             params.techEmail,
             cookie.token,
             pathname,
             null,
-            true
+            'tech'
           );
         } else {
           console.log('logout');

@@ -33,7 +33,7 @@ const Navigation = () => {
           />
           <PrivateRoute
             exact
-            path={`${process.env.PUBLIC_URL}/:studioId/cc/workorder/:id/:techEmail/:token?`}
+            path={`${process.env.PUBLIC_URL}/:studioId/cc/workorder/:id/:ccEmail/:token?`}
             component={WorkorderViewOnly}
           />
           <PrivateRoute

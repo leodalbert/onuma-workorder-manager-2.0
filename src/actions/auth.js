@@ -44,7 +44,7 @@ export const sessionLogin = (
 ) => async (dispatch) => {
   dispatch({ type: AUTH_LOADING });
   try {
-    if (isTech) {
+    if (isTech === 'tech') {
       const res = await network.startSession(token, email, studioId);
 
       // get current tech and all techs in siteGroup if tech workorder
@@ -56,7 +56,7 @@ export const sessionLogin = (
         Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
         dispatch({ type: LOGIN_SUCCESS, payload: email });
       }
-    } else {
+    } else if (isTech === 'requester') {
       const res = await network.startRequesterSession(
         token,
         email,
@@ -68,6 +68,14 @@ export const sessionLogin = (
         dispatch({ type: REDIRECT, payload: pathname });
       } else {
         Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
+        dispatch({ type: LOGIN_SUCCESS, payload: email });
+      }
+    } else {
+      const res = await network.startCcSession(email, studioId, workorder);
+
+      if (res.request.responseURL.includes('login')) {
+        dispatch({ type: REDIRECT, payload: pathname });
+      } else {
         dispatch({ type: LOGIN_SUCCESS, payload: email });
       }
     }
