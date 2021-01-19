@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing(1),
     },
-    padding: theme.spacing(1),
+    paddingTop: theme.spacing(2),
     textAlign: 'left',
     color: theme.palette.info.main,
   },
@@ -57,9 +57,7 @@ const renderfields = (fields, classes) => {
         <Grid className={classes.detailCtr} item xs={12} sm={8} lg={7}>
           <Typography
             variant='body1'
-            className={
-              detailColor ? classes[detailColor] : classes.detailStyle
-            }>
+            className={detailColor ? classes.detailRed : classes.detailStyle}>
             {detail}
           </Typography>
         </Grid>

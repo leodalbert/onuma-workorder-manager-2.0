@@ -218,6 +218,9 @@ const StatusPageWorkorder = ({
           </Grid>
           {status !== 'Completed' &&
             status !== 'Completion Confirmed' &&
+            status !== 'Closed' &&
+            status !== 'Archived' &&
+            status !== 'Cancelled' &&
             user === requestEmail && (
               <Grid item xs={12}>
                 <div className={classes.btnBreak}>

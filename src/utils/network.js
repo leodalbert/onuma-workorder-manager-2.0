@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { BASE_URL } from './environment';
+import { inDev } from './HelperFunctions';
 
 axios.interceptors.response.use((response) => response.data);
-axios.defaults.headers.common = {
-  Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
-};
+if (inDev()) {
+  axios.defaults.headers.common = {
+    Authorization: 'Bearer ' + process.env.REACT_APP_BEARER_TOKEN,
+  };
+}
 
 // TODO - is baseURL required?
 

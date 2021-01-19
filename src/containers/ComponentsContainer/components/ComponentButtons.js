@@ -12,9 +12,9 @@ const ComponentButtons = ({
 }) => {
   return (
     <Fragment>
-      {components.map((component) => {
+      {components.map((component, index) => {
         return (
-          <Grid key={component.instanceId}>
+          <Grid key={index}>
             <ComponentButtonGroup
               component={component}
               setOpenDeleteAlert={setOpenDeleteAlert}
