@@ -23,26 +23,30 @@ const AttachmentPage = ({
       {files &&
         files.length > 0 &&
         [...files].sort(sortFilesByType).map(({ directus_files: file, id }) => {
-          if (file.type.split('/')[0] === 'image') {
-            return (
-              <ImageCard
-                key={file.id}
-                file={file}
-                id={id}
-                techId={techId}
-                handleDelete={handleDelete}
-              />
-            );
+          if (file) {
+            if (file.type.split('/')[0] === 'image') {
+              return (
+                <ImageCard
+                  key={file.id}
+                  file={file}
+                  id={id}
+                  techId={techId}
+                  handleDelete={handleDelete}
+                />
+              );
+            } else {
+              return (
+                <FileCard
+                  key={file.id}
+                  file={file}
+                  id={id}
+                  techId={techId}
+                  handleDelete={handleDelete}
+                />
+              );
+            }
           } else {
-            return (
-              <FileCard
-                key={file.id}
-                file={file}
-                id={id}
-                techId={techId}
-                handleDelete={handleDelete}
-              />
-            );
+            return null;
           }
         })}
       <Grid style={{ textAlign: 'center' }} item xs={12}>

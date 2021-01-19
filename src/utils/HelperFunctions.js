@@ -44,7 +44,6 @@ export const workOrderRequestFieldGen = (workOrder) => {
     status,
     assigned_technician: { first_name, last_name },
   } = workOrder;
-  console.log(workOrder);
 
   let FIELDS = [];
   request_number &&
