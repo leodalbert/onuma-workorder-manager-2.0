@@ -18,7 +18,18 @@
       src="https://kit.fontawesome.com/aba47b7332.js"
       crossorigin="anonymous"
     ></script>
-
+    <script>
+      // Internet Explorer 6-11
+      const isIE = document.documentMode;
+      if (isIE) {
+        window.alert(
+          `You are using Internet Explorer!
+        Internet explorer has reached the end of its life.
+        Please use a modern browser such as 
+        Chrome, Firefox, Safari, Edge, ect.`
+        );
+      }
+    </script>
     <title>BIMgenie Work Orders</title>
   </head>
   <body>
