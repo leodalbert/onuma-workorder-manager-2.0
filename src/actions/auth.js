@@ -55,7 +55,7 @@ export const sessionLogin = (
       } else {
         Cookies.set(
           'onumaLocal',
-          btoa(JSON.stringify({ email, token, workorder })),
+          btoa(JSON.stringify({ email, token, workorder, isTech })),
           { expires: 7 }
         );
         dispatch({ type: LOGIN_SUCCESS, payload: email });
@@ -73,7 +73,7 @@ export const sessionLogin = (
       } else {
         Cookies.set(
           'onumaLocal',
-          btoa(JSON.stringify({ email, token, workorder })),
+          btoa(JSON.stringify({ email, token, workorder, isTech })),
           { expires: 7 }
         );
         dispatch({ type: LOGIN_SUCCESS, payload: email });

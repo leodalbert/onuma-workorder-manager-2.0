@@ -14,6 +14,7 @@ import {
   selectIsAuth,
   selectAuthRedirect,
 } from 'Selectors/auth';
+import { selectTechId } from 'Selectors/tech';
 import useInterval from 'hooks/useInterval';
 import Spinner from 'components/Common/Spinner';
 
@@ -31,6 +32,7 @@ export const PrivateRoute = ({
   user,
   getCurrentTech,
   setToken,
+  techId,
   location: { pathname },
   computedMatch: { params, url },
   component: Component,
@@ -150,15 +152,24 @@ export const PrivateRoute = ({
     );
   }
 
+  // set true if tech page and tech has loaded
+  let techForLogin = true;
+  if (params.techEmail || (cookie && cookie.isTech === 'tech')) {
+    techForLogin = false;
+    if (techId) {
+      techForLogin = true;
+    }
+  }
+
   return (
     <Route
       {...rest}
       component={(props) =>
-        isAuth && user ? (
+        isAuth && user && techForLogin ? (
           <div>
             <Component {...props} />
           </div>
-        ) : authLoading ? (
+        ) : authLoading || !techForLogin ? (
           <Spinner />
         ) : (
           <Container style={{ marginTop: '20px', textAlign: 'center' }}>
@@ -201,6 +212,7 @@ const mapStateToProps = (state) => ({
   redirect: selectAuthRedirect(state),
   authLoading: selectAuthLoading(state),
   user: selectAuthUser(state),
+  techId: selectTechId(state),
 });
 
 export default connect(mapStateToProps, {
