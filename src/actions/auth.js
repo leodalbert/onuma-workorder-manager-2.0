@@ -53,7 +53,11 @@ export const sessionLogin = (
       if (res.request.responseURL.includes('login')) {
         dispatch({ type: REDIRECT, payload: pathname });
       } else {
-        Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
+        Cookies.set(
+          'onumaLocal',
+          btoa(JSON.stringify({ email, token, workorder })),
+          { expires: 7 }
+        );
         dispatch({ type: LOGIN_SUCCESS, payload: email });
       }
     } else if (isTech === 'requester') {
@@ -67,7 +71,11 @@ export const sessionLogin = (
       if (res.request.responseURL.includes('login')) {
         dispatch({ type: REDIRECT, payload: pathname });
       } else {
-        Cookies.set('onumaLocal', btoa(JSON.stringify({ email, token })));
+        Cookies.set(
+          'onumaLocal',
+          btoa(JSON.stringify({ email, token, workorder })),
+          { expires: 7 }
+        );
         dispatch({ type: LOGIN_SUCCESS, payload: email });
       }
     } else {

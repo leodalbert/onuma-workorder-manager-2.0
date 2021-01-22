@@ -64,7 +64,7 @@ export const PrivateRoute = ({
             params.requesterEmail,
             cookie.token,
             null,
-            params.id,
+            cookie.workorder,
             'requester'
           );
         } else {
