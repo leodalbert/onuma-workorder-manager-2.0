@@ -3,6 +3,7 @@ import WorkOrderContainer from './components/WorkOrderContainer';
 import { getWorkOrderById, sendCommentToRequestor } from 'actions/workorder';
 import { selectSpace } from 'Selectors/space';
 import { selectCollaborators } from 'Selectors/collaborators';
+import { selectTechId } from 'Selectors/tech';
 import { selectWorkorderTasks } from 'Selectors/task';
 import {
   selectWorkorderId,
@@ -19,6 +20,7 @@ const mapStateToProps = (state) => ({
   workorder: makeSelectWorkorder(state),
   workorderId: selectWorkorderId(state),
   loading: selectWorkorderLoading(state),
+  techId: selectTechId(state),
 });
 
 const mapDispatchToProps = { getWorkOrderById, sendCommentToRequestor };

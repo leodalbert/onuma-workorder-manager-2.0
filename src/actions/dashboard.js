@@ -7,11 +7,11 @@ import {
 } from './types';
 import network from 'utils/network';
 
-// Get all work orders by tech Id
-export const getAllWorkOrders = (techId, studioId) => async (dispatch) => {
+// Get all work orders by email
+export const getAllWorkOrders = (techEmail, studioId) => async (dispatch) => {
   dispatch({ type: SET_DASH_LOADING });
   try {
-    const res = await network.getAllWorkordersByTech(techId, studioId);
+    const res = await network.getAllWorkordersByTech(techEmail, studioId);
     dispatch({ type: GET_TECHS_WORK_ORDERS, payload: res.data });
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });

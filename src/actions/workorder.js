@@ -4,6 +4,7 @@ import {
   getInitialWorkOrderComponentDetails,
 } from 'actions/component';
 import { getFileInfo } from 'actions/attachments';
+import { setTechId } from 'actions/tech';
 import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
@@ -31,10 +32,31 @@ export const getFloorId = (buildingId, studioId) => async (dispatch) => {
 };
 
 // Get technician page Work order by work order Id
-export const getWorkOrderById = (workorderId, studioId) => async (dispatch) => {
+export const getWorkOrderById = (
+  workorderId,
+  studioId,
+  techId,
+  techEmail
+) => async (dispatch) => {
   try {
     const res = await network.getWorkorderById(workorderId, studioId);
     let workorder = res.data;
+
+    // if technician is in multiple site_groups
+    if (
+      techId &&
+      techId !== workorder.assigned_technician.id &&
+      !workorder.collaborators.some((c) => c.collaborator.id === techId)
+    ) {
+      const techs = await network.getAllTechs(
+        studioId,
+        workorder.assigned_technician.site_group
+      );
+      const [tech] = techs.data.filter((tech) => tech.email === techEmail);
+      dispatch(
+        setTechId(studioId, tech.id, workorder.assigned_technician.site_group)
+      );
+    }
 
     // get details of components in workorder
     if (workorder.components.length > 0) {

@@ -10,12 +10,21 @@ const WorkOrder = (props) => {
     getWorkOrderById,
     workorderId,
     loading,
+    techId,
   } = props;
 
   //   get workorder
   useEffect(() => {
-    !workorderId && getWorkOrderById(params.id, params.studioId);
-  }, [workorderId, getWorkOrderById, params.id, params.studioId]);
+    !workorderId &&
+      getWorkOrderById(params.id, params.studioId, techId, params.techEmail);
+  }, [
+    workorderId,
+    getWorkOrderById,
+    params.id,
+    params.studioId,
+    params.techEmail,
+    techId,
+  ]);
 
   return loading ? <Spinner /> : <WorkOrderAccordion {...props} />;
 };

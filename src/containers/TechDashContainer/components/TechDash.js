@@ -48,8 +48,8 @@ const TechDash = (props) => {
 
   // get all workorders that are assigned to, or have listed as a collaborator, current tech
   useEffect(() => {
-    getAllWorkOrders(techId, studioId);
-  }, [getAllWorkOrders, techId, studioId]);
+    getAllWorkOrders(techEmail, studioId);
+  }, [getAllWorkOrders, techEmail, studioId]);
 
   useEffect(() => {
     dispatch({

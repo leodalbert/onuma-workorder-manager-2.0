@@ -78,10 +78,10 @@ const network = () => {
   };
 
   // Get all work orders by tech Id
-  const getAllWorkordersByTech = (techId, studioId) => {
+  const getAllWorkordersByTech = (techEmail, studioId) => {
     const config = { headers };
     return axios.get(
-      `/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,status,collaborators.collaborator&filter[collaborators.collaborator][in]=${techId}&filter[assigned_technician.id][in]=${techId}&filter[assigned_technician.id][logical]=or`,
+      `/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,assigned_technician.email,status,collaborators.collaborator&filter[collaborators.collaborator.email][in]=${techEmail}&filter[assigned_technician.email][in]=${techEmail}&filter[assigned_technician.email][logical]=or`,
       config
     );
   };
@@ -117,7 +117,7 @@ const network = () => {
   const getWorkorderById = (workorderId, studioId) => {
     const config = { headers };
     return axios.get(
-      `${baseUrl}/${studioId}/api/items/workorder/${workorderId}?fields=*,*.*,id,status,token,request_number,building.id,building.site,building.number,building.name,floor.name,floor.id,floor.number,space.id,space.number,space.name,submitted_by,request_email,assigned_priority,request_date,request_description,components.component,components.id,tasks.*,assigned_technician.id,assigned_technician.first_name,assigned_technician.last_name,assigned_technician.email,location_description,request_telephone,due_date,administrator_to_technician_comment,administrator_comment,collaborators.collaborator,collaborators.id,assigned_trade,collaborators.collaborator.email,collaborators.collaborator.id,request_email_cc,preventive_maintenance,maintenance_procedures`,
+      `${baseUrl}/${studioId}/api/items/workorder/${workorderId}?fields=*,*.*,id,status,token,request_number,building.id,building.site,building.number,building.name,floor.name,floor.id,floor.number,space.id,space.number,space.name,submitted_by,request_email,assigned_priority,request_date,request_description,components.component,components.id,tasks.*,assigned_technician.id,assigned_technician.first_name,assigned_technician.last_name,assigned_technician.email,assigned_technician.site_group,location_description,request_telephone,due_date,administrator_to_technician_comment,administrator_comment,collaborators.collaborator,collaborators.id,assigned_trade,collaborators.collaborator.email,collaborators.collaborator.id,request_email_cc,preventive_maintenance,maintenance_procedures`,
       config
     );
   };

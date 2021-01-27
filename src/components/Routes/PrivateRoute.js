@@ -49,7 +49,7 @@ export const PrivateRoute = ({
       }
       if (!isAuth && authLoading) {
         if (params.token) {
-          console.log('start requester session from param token');
+          // console.log('start requester session from param token');
           sessionLogin(
             params.studioId,
             params.requesterEmail,
@@ -60,7 +60,7 @@ export const PrivateRoute = ({
           );
           // handle login for requester page - handle login if no token in url from local cookie (refreshing page ect...)
         } else if (cookie && cookie.email === params.requesterEmail) {
-          console.log('start requester session from cookie token');
+          // console.log('start requester session from cookie token');
           sessionLogin(
             params.studioId,
             params.requesterEmail,
@@ -77,7 +77,7 @@ export const PrivateRoute = ({
     } else if (params.ccEmail) {
       // handle login for cc page - initial token login
       if (!isAuth && authLoading) {
-        console.log('start cc session');
+        // console.log('start cc session');
         sessionLogin(
           params.studioId,
           params.ccEmail,
@@ -94,7 +94,7 @@ export const PrivateRoute = ({
       // handle login for technician page - initial token login
       if (!isAuth && authLoading) {
         if (params.token) {
-          console.log('start tech session from param token');
+          // console.log('start tech session from param token');
           sessionLogin(
             params.studioId,
             params.techEmail,
@@ -105,7 +105,7 @@ export const PrivateRoute = ({
           );
           // handle login for technician page - handle login if no token in url from local cookie (refreshing page ect...)
         } else if (cookie && cookie.email === params.techEmail) {
-          console.log('start tech session from cookie token');
+          // console.log('start tech session from cookie token');
           sessionLogin(
             params.studioId,
             params.techEmail,
@@ -117,6 +117,7 @@ export const PrivateRoute = ({
         } else {
           console.log('logout');
           logout();
+          // history.push(`${process.env.PUBLIC_URL}/${params.studioId}/logout`);
         }
       }
     }
@@ -125,7 +126,7 @@ export const PrivateRoute = ({
   // set tech token in state and remove token from url
   useEffect(() => {
     if (params.token && isAuth) {
-      console.log('go');
+      // console.log('go');
       setToken(params.token);
       const location = url.split('/');
       location.pop();
