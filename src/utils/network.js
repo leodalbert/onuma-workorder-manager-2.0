@@ -332,6 +332,47 @@ const network = () => {
     );
   };
 
+  // Get all components in bulding by name
+  const searchComponentsName = (searchParam, buildingId, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/space_component?fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.name][contains]=${searchParam}`,
+      config
+    );
+  };
+  // Get all components in bulding by type
+  const searchComponentsInstance = (searchParam, buildingId, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/space_component?fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.instance_name][contains]=${searchParam}`,
+      config
+    );
+  };
+  // Get all components in bulding by barcode
+  const searchComponentsBarcode = (searchParam, buildingId, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/space_component?fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.barcode][contains]=${searchParam}`,
+      config
+    );
+  };
+  // Get all components in bulding by serial number
+  const searchComponentsSerial = (searchParam, buildingId, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/space_component?fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.serial_number][contains]=${searchParam}`,
+      config
+    );
+  };
+  // Get all components in bulding by type
+  const searchComponentsType = (searchParam, buildingId, studioId) => {
+    const config = { headers };
+    return axios.get(
+      `${baseUrl}/${studioId}/api/items/space_component?fields=id,component.name,component.id,component.barcode,component.component_type.manufacturer,component.instance_name,component.component_type.name,component.component_type.model_number,component.serial_number,component.space_component.space.name,component.space_component.space.number,component.space_component.space.floor.name, component.space_component.space.floor.number&filter[space.floor.building.id][eq]=${buildingId}&filter[component.component_type][contains]=${searchParam}`,
+      config
+    );
+  };
+
   // Get spaces by site
   const getAllSpaces = (siteId, studioId) => {
     const config = { headers };
@@ -419,6 +460,11 @@ const network = () => {
     addComponent,
     removeComponent,
     searchComponents,
+    searchComponentsName,
+    searchComponentsBarcode,
+    searchComponentsType,
+    searchComponentsSerial,
+    searchComponentsInstance,
     getAllSpaces,
     getWorkOrderStatusDetails,
     updateStatusPageWorkorder,

@@ -97,9 +97,9 @@ const SummaryTable = ({
                       {dayjs(row.request_date).format('MM/DD/YYYY')}
                     </TableCell>
                     <TableCell align='left'>
-                      {email && row.assigned_technician.email !== email && (
-                        <span>*&nbsp;</span>
-                      )}
+                      {row.collaborators.some(
+                        (collaborator) => collaborator.collaborator === techId
+                      ) && <span>*&nbsp;</span>}
                       {requesterEmail &&
                         row.request_email !== requesterEmail && (
                           <span>*&nbsp;</span>

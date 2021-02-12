@@ -142,29 +142,69 @@ export const removeComponent = (componentWorkorderId, studioId) => async (
   }
 };
 
+// // Get all components in bulding by search criteria
+// export const searchComponents = (searchParam, buildingId, studioId) => async (
+//   dispatch
+// ) => {
+//   dispatch({ type: SEARCH_LOADING });
+//   try {
+//     const res = await network.searchComponents(
+//       searchParam,
+//       buildingId,
+//       studioId
+//     );
+
+//     // refractor data from backend change
+//     let data = res.data;
+//     data.map(
+//       (component) =>
+//         (component.component.space = component.component.space_component)
+//     );
+
+//     dispatch({ type: SEARCH_COMPONENTS, payload: data });
+//   } catch (err) {
+//     dispatch({ type: LOGIN_FAIL });
+//   }
+// };
+
 // Get all components in bulding by search criteria
 export const searchComponents = (searchParam, buildingId, studioId) => async (
   dispatch
 ) => {
   dispatch({ type: SEARCH_LOADING });
-  try {
-    const res = await network.searchComponents(
-      searchParam,
-      buildingId,
-      studioId
-    );
-
-    // refractor data from backend change
-    let data = res.data;
-    data.map(
-      (component) =>
-        (component.component.space = component.component.space_component)
-    );
-
-    dispatch({ type: SEARCH_COMPONENTS, payload: data });
-  } catch (err) {
-    dispatch({ type: LOGIN_FAIL });
-  }
+  (async function () {
+    try {
+      const res = await Promise.all([
+        network.searchComponentsName(searchParam, buildingId, studioId),
+        network.searchComponentsInstance(searchParam, buildingId, studioId),
+        network.searchComponentsBarcode(searchParam, buildingId, studioId),
+        network.searchComponentsSerial(searchParam, buildingId, studioId),
+        network.searchComponentsType(searchParam, buildingId, studioId),
+      ]);
+      // once all requests have responded, flatten result, then remove duplicates by id with Map
+      const data = res.map((obj) => obj.data).flat();
+      const result = [];
+      const map = new Map();
+      for (const item of data) {
+        if (!map.has(item.id)) {
+          map.set(item.id, true); // set any value to Map
+          result.push({
+            id: item.id,
+            component: item.component,
+          });
+        }
+      }
+      // refractor data from backend change
+      result.map(
+        (component) =>
+          (component.component.space = component.component.space_component)
+      );
+      console.log(result);
+      dispatch({ type: SEARCH_COMPONENTS, payload: result });
+    } catch (err) {
+      dispatch({ type: LOGIN_FAIL });
+    }
+  })();
 };
 
 // Populate Component dialog with payload
