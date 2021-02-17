@@ -107,10 +107,12 @@ const AssignedTo = ({
                 let tech = visCollaborators.filter(
                   (tech) => tech.id === collaborator.collaborator.id
                 );
-                return (
+                return tech[0] ? (
                   <ListItem key={tech[0].id}>
                     {TechEmail(
-                      `${tech[0].first_name} ${tech[0].last_name}`,
+                      `${tech[0].first_name && tech[0].first_name} ${
+                        tech[0].last_name && tech[0].last_name
+                      }`,
                       tech[0].email,
                       workorderSpaceName,
                       workorderBuildingName,
@@ -127,7 +129,7 @@ const AssignedTo = ({
                       </Button>
                     )}
                   </ListItem>
-                );
+                ) : null;
               })}
             </List>
           </div>

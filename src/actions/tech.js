@@ -11,7 +11,6 @@ export const getCurrentTech = (techEmail, studio) => async (dispatch) => {
       let payload;
       if (res.data) {
         payload = res.data[0];
-        dispatch(getAllTechs(studio, res.data[0].site_group.id));
         dispatch({ type: CURRENT_TECH, payload });
       }
     }

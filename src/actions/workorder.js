@@ -4,7 +4,7 @@ import {
   getInitialWorkOrderComponentDetails,
 } from 'actions/component';
 import { getFileInfo } from 'actions/attachments';
-import { setTechId } from 'actions/tech';
+import { setTechId, getAllTechs } from 'actions/tech';
 import {
   GET_WORKORDER,
   GET_WORKORDER_FILES,
@@ -41,6 +41,8 @@ export const getWorkOrderById = (
   try {
     const res = await network.getWorkorderById(workorderId, studioId);
     let workorder = res.data;
+
+    dispatch(getAllTechs(studioId, workorder.assigned_technician.site_group));
 
     // if technician is in multiple site_groups
     if (
