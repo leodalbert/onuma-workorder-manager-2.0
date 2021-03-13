@@ -77,7 +77,14 @@ const StatusPageWorkorder = ({
   match: {
     params: { studioId, id: workorderId },
   },
-  spaceInfo: { siteId, buildingId, floorId, spaceId, location_description },
+  spaceInfo: {
+    siteId,
+    buildingId,
+    floorId,
+    spaceId,
+    location_description,
+    siteGroup,
+  },
   workorder: { floor, building, space },
   status,
   setStatus,
@@ -122,6 +129,12 @@ const StatusPageWorkorder = ({
     } else {
       setEdit(true);
     }
+  };
+  const handleNewWorkorder = () => {
+    window.open(
+      `https://system.onuma.com/static/ng2/wo/request/new/studio/${studioId}/site-group/${siteGroup}`,
+      'window'
+    );
   };
   return (
     <div className={classes.statusCtrSpacing}>
@@ -247,6 +260,15 @@ const StatusPageWorkorder = ({
                     color={edit ? 'inherit' : 'secondary'}
                     onClick={handleClick}>
                     {edit ? 'Save Changes' : 'Edit Details'}
+                  </Button>
+                </div>
+                <div className={clsx(classes.paddingTopS, classes.btnBreak)}>
+                  <Button
+                    className={classes.btnWidth}
+                    variant='contained'
+                    color='secondary'
+                    onClick={handleNewWorkorder}>
+                    New Workorder
                   </Button>
                 </div>
               </Grid>

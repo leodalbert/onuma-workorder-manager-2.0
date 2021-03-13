@@ -117,12 +117,14 @@ const SummaryTable = ({
                     </TableCell>
                     <TableCell align='left'>{row.request_number}</TableCell>
                     <TableCell align='left'>
-                      {row.building.name} -{' '}
-                      {row.space
-                        ? `${row.space.number && row.space.number} ${
-                            row.space.name && row.space.name
-                          }`
-                        : 'Default space'}
+                      {row.building.name}
+                      {row.space && ' - '}
+                      {row.space &&
+                        (row.space.number
+                          ? row.space.number
+                          : row.space.name
+                          ? row.space.name
+                          : ' ')}
                     </TableCell>
                   </TableRow>
                 );

@@ -105,7 +105,8 @@ export const getRequesterWorkOrder = (workorderId, studioId) => async (
 
     // create object with buidling info if availible
     let buildingInfo = {};
-    buildingInfo.siteId = workorder.building.site;
+    buildingInfo.siteId = workorder.building.site.id;
+    buildingInfo.siteGroup = workorder.building.site.site_group;
     buildingInfo.buildingId = workorder.building.id;
 
     if (workorder.space) {

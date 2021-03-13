@@ -4,10 +4,14 @@ import {
   clearWorkorderState,
   getAllWorkOrderRequestsByRequester,
 } from 'actions/dashboard';
-import { selectRequesterWorkorders } from 'Selectors/dashboard';
+import {
+  selectRequesterWorkorders,
+  selectDashboardLoading,
+} from 'Selectors/dashboard';
 
 const mapStateToProps = (state) => ({
   workorders: selectRequesterWorkorders(state),
+  loading: selectDashboardLoading(state),
 });
 
 const mapDispatchToProps = {

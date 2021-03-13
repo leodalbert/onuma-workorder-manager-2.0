@@ -38,6 +38,7 @@ const TechDash = (props) => {
       params: { studioId, techEmail },
     },
     workorders,
+    loading,
   } = props;
   const [filterReducer, dispatch] = useReducer(reducer, initialFilterState);
 
@@ -58,7 +59,7 @@ const TechDash = (props) => {
     });
   }, [workorders, filterReducer.filter]);
 
-  return workorders.length === 0 || !techId ? (
+  return loading || !techId ? (
     <Spinner />
   ) : (
     <Fragment>

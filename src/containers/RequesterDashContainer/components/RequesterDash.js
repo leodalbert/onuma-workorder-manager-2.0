@@ -37,6 +37,7 @@ const RequesterDash = (props) => {
       params: { studioId, requesterEmail },
     },
     workorders,
+    loading,
   } = props;
   const [filterReducer, dispatch] = useReducer(reducer, initialFilterState);
 
@@ -57,7 +58,7 @@ const RequesterDash = (props) => {
     });
   }, [workorders, filterReducer.filter]);
 
-  return workorders.length === 0 ? (
+  return loading ? (
     <Spinner />
   ) : (
     <Fragment>
