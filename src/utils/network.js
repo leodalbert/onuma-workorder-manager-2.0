@@ -81,7 +81,7 @@ const network = () => {
   const getAllWorkordersByTech = (techEmail, studioId) => {
     const config = { headers };
     return axios.get(
-      `/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building,assigned_priority,space,assigned_technician,assigned_technician.email,status,collaborators.collaborator&filter[collaborators.collaborator.email][in]=${techEmail}&filter[assigned_technician.email][in]=${techEmail}&filter[assigned_technician.email][logical]=or`,
+      `/${studioId}/api/items/workorder?limit=9999&fields=id,request_number,request_date,request_description,request_number,building.id,building.name,assigned_priority,space.id,space.name,space.number,assigned_technician,assigned_technician.email,status,collaborators.collaborator&filter[collaborators.collaborator.email][in]=${techEmail}&filter[assigned_technician.email][in]=${techEmail}&filter[assigned_technician.email][logical]=or`,
       config
     );
   };
