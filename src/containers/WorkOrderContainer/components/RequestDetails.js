@@ -1,4 +1,5 @@
 import React, { useState, memo } from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Divider, Hidden } from '@material-ui/core';
@@ -10,9 +11,9 @@ import Components from 'containers/ComponentsContainer';
 import {
   MemoRequestNumberGrid as RequestNumberGrid,
   MemoRequestCommentGrid as RequestCommentGrid,
-  MemoRequestLocationGrid as RequestLocationGrid,
   MemoRequestPmGrid as RequestPmGrid,
 } from './RequestDetailGrid';
+import Location from 'components/Common/Location';
 import CommentTextBox from './CommentTextBox';
 import { inDev } from 'utils/HelperFunctions';
 
@@ -35,13 +36,47 @@ const useStyles = makeStyles((theme) => ({
 const RequestDetails = ({
   studioId,
   workorder,
+  workorder: { floor, building, space, id: workorderId },
   sendCommentToRequestor,
-  space: { siteId, buildingId, floorId, spaceId },
+  siteBuidlings,
+  updateWorkorderLocation,
+  space: { siteId, buildingId, floorId, spaceId, location_description },
   readOnly,
 }) => {
   const classes = useStyles();
   const [openPmDialog, setOpenPmDialog] = useState(false);
+  const [topLocationState, setTopLocationState] = useState({});
+  const [editLocation, setEditLocation] = useState(false);
+  const initialLocationState = { floor, building, space, location_description };
 
+  if (initialLocationState.location_description === null) {
+    initialLocationState.location_description = '';
+  }
+  if (initialLocationState.space === null) {
+    initialLocationState.space = '';
+  }
+  if (initialLocationState.floor === null) {
+    initialLocationState.floor = '';
+  }
+
+  const handleUpdateLocationClick = () => {
+    if (editLocation) {
+      let updateObj = {};
+      if (!_.isEqual(initialLocationState, topLocationState)) {
+        updateObj.building = topLocationState.building.id;
+        updateObj.floor =
+          topLocationState.floor.id === '' ? null : topLocationState.floor.id;
+        updateObj.space =
+          topLocationState.space.id === '' ? null : topLocationState.space.id;
+        updateObj.location_description = topLocationState.location_description;
+        updateWorkorderLocation(studioId, workorderId, updateObj);
+      }
+
+      setEditLocation(false);
+    } else {
+      setEditLocation(true);
+    }
+  };
   return (
     <div className={classes.root}>
       <Grid item container xs={12}>
@@ -49,7 +84,14 @@ const RequestDetails = ({
           <Grid item container spacing={3}>
             <RequestNumberGrid workorder={workorder} />
             <Hidden mdDown>
-              <RequestLocationGrid workorder={workorder} />
+              <Location
+                workorder={workorder}
+                edit={editLocation}
+                siteBuidlings={siteBuidlings}
+                setTopLocationState={setTopLocationState}
+                handleUpdateLocationClick={handleUpdateLocationClick}
+                isTechnicianPage={true}
+              />
               <RequestPmGrid
                 workorder={workorder}
                 setOpenPmDialog={setOpenPmDialog}
@@ -88,7 +130,12 @@ const RequestDetails = ({
         <Hidden lgUp>
           <Grid item container direction='column' xs={12} lg={7}>
             <Grid item container spacing={3}>
-              <RequestLocationGrid workorder={workorder} />
+              <Location
+                workorder={workorder}
+                edit={editLocation}
+                siteBuidlings={siteBuidlings}
+                setTopLocationState={setTopLocationState}
+              />
               <RequestPmGrid
                 workorder={workorder}
                 setOpenPmDialog={setOpenPmDialog}

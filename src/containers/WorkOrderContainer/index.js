@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import WorkOrderContainer from './components/WorkOrderContainer';
-import { getWorkOrderById, sendCommentToRequestor } from 'actions/workorder';
+import {
+  getWorkOrderById,
+  sendCommentToRequestor,
+  updateWorkorderLocation,
+} from 'actions/workorder';
 import { selectSpace } from 'Selectors/space';
 import { selectCollaborators } from 'Selectors/collaborators';
 import { selectTechId } from 'Selectors/tech';
@@ -10,6 +14,7 @@ import {
   selectWorkorderLoading,
   selectWorkorderStatus,
   makeSelectWorkorder,
+  selectSiteBuildings,
 } from 'Selectors/workorder';
 
 const mapStateToProps = (state) => ({
@@ -21,9 +26,14 @@ const mapStateToProps = (state) => ({
   workorderId: selectWorkorderId(state),
   loading: selectWorkorderLoading(state),
   techId: selectTechId(state),
+  siteBuidlings: selectSiteBuildings(state),
 });
 
-const mapDispatchToProps = { getWorkOrderById, sendCommentToRequestor };
+const mapDispatchToProps = {
+  getWorkOrderById,
+  sendCommentToRequestor,
+  updateWorkorderLocation,
+};
 
 const WorkOrder = connect(
   mapStateToProps,

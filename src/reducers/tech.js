@@ -1,5 +1,11 @@
 import produce from 'immer';
-import { CURRENT_TECH, GET_TECHS, SET_TECH } from 'actions/types';
+import {
+  CURRENT_TECH,
+  GET_TECHS,
+  SET_TECH,
+  LOGIN_FAIL,
+  LOGOUT,
+} from 'actions/types';
 
 export const initialState = {
   techs: [],
@@ -28,6 +34,10 @@ const Tech = (state = initialState, action) =>
       case SET_TECH:
         draft.id = payload.id;
         draft.siteGroup = payload.siteGroup;
+        break;
+      case LOGIN_FAIL:
+      case LOGOUT:
+        draft.id = 404;
         break;
       default:
         break;

@@ -154,23 +154,23 @@ export const PrivateRoute = ({
   }
 
   // set true if tech page and tech has loaded
-  let techForLogin = true;
-  if (params.techEmail || (cookie && cookie.isTech === 'tech')) {
-    techForLogin = false;
-    if (techId) {
-      techForLogin = true;
-    }
-  }
+  // let techForLogin = true;
+  // if (params.techEmail || (cookie && cookie.isTech === 'tech')) {
+  //   techForLogin = false;
+  //   if (techId) {
+  //     techForLogin = true;
+  //   }
+  // }
 
   return (
     <Route
       {...rest}
       component={(props) =>
-        isAuth && user && techForLogin ? (
+        isAuth && user /*&& techForLogin*/ ? (
           <div>
             <Component {...props} />
           </div>
-        ) : authLoading || !techForLogin ? (
+        ) : authLoading ? (
           <Spinner />
         ) : (
           <Container style={{ marginTop: '20px', textAlign: 'center' }}>

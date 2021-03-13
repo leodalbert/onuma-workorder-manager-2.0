@@ -58,7 +58,7 @@ const TechDash = (props) => {
     });
   }, [workorders, filterReducer.filter]);
 
-  return workorders.length === 0 ? (
+  return workorders.length === 0 || !techId ? (
     <Spinner />
   ) : (
     <Fragment>

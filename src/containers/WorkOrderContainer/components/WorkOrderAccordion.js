@@ -53,6 +53,8 @@ const WorkOrder = (props) => {
             space={props.space}
             studioId={props.match.params.studioId}
             sendCommentToRequestor={props.sendCommentToRequestor}
+            siteBuidlings={props.siteBuidlings}
+            updateWorkorderLocation={props.updateWorkorderLocation}
           />
         </AccordionDetails>
       </Accordion>

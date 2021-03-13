@@ -7,9 +7,11 @@ import {
   MenuItem,
   FormControl,
   TextField,
+  IconButton,
 } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
 
-import { locationFieldGen } from 'utils/HelperFunctions';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     },
     color: theme.palette.text.primary,
   },
+  button: {
+    marginBottom: theme.spacing(1),
+    marginRight: theme.spacing(2),
+  },
   labelSelectStyle: {
     padding: theme.spacing(1),
     fontWeight: 'bolder',
@@ -77,10 +83,11 @@ const Location = ({
     space = '',
     location_description = '',
   },
-  workorder,
   edit,
   siteBuidlings,
   setTopLocationState,
+  handleUpdateLocationClick,
+  isTechnicianPage = false,
 }) => {
   let initialLocationState = { floor, building, space, location_description };
 
@@ -95,11 +102,6 @@ const Location = ({
   }
   const classes = useStyles();
   const [locationState, setLocationState] = useState(initialLocationState);
-  let spaceDetails;
-
-  if (workorder.building) {
-    spaceDetails = locationFieldGen(workorder);
-  }
 
   useEffect(() => {
     setTopLocationState(locationState);
@@ -107,24 +109,48 @@ const Location = ({
 
   const handleChange = (e) => {
     if (e.target.name === 'building') {
+      const buildingInfo = siteBuidlings.find(
+        (building) => building.id === e.target.value
+      );
       setLocationState({
-        building: { id: e.target.value },
+        building: {
+          id: e.target.value,
+          site: building.site,
+          name: buildingInfo.name,
+          number: buildingInfo.number,
+        },
         space: { id: '' },
         floor: { id: '' },
         location_description: '',
       });
     } else if (e.target.name === 'floor') {
+      const floorInfo = siteBuidlings
+        .find((building) => building.id === locationState.building.id)
+        .floors.find((floor) => floor.id === e.target.value);
+
       setLocationState({
         ...locationState,
         space: { id: '' },
         location_description: '',
-        [e.target.name]: { id: e.target.value },
+        floor: {
+          id: e.target.value,
+          name: floorInfo.name,
+          number: floorInfo.number,
+        },
       });
     } else if (e.target.name === 'space') {
+      const spaceInfo = siteBuidlings
+        .find((building) => building.id === locationState.building.id)
+        .floors.find((floor) => floor.id === locationState.floor.id)
+        .spaces.find((space) => space.id === e.target.value);
       setLocationState({
         ...locationState,
         location_description: '',
-        [e.target.name]: { id: e.target.value },
+        space: {
+          id: e.target.value,
+          name: spaceInfo.name,
+          number: spaceInfo.number,
+        },
       });
     } else if (e.target.name === 'location_description') {
       setLocationState({
@@ -139,6 +165,22 @@ const Location = ({
         <Typography
           variant='subtitle1'
           className={edit ? classes.labelSelectStyle : classes.labelStyle}>
+          {isTechnicianPage && (
+            <IconButton
+              className={classes.button}
+              aria-label='edit-location'
+              size='small'
+              onClick={handleUpdateLocationClick}
+              disabled={
+                !locationState.space.id && !locationState.location_description
+              }>
+              {edit ? (
+                <SaveIcon fontSize='inherit' />
+              ) : (
+                <EditIcon fontSize='inherit' />
+              )}
+            </IconButton>
+          )}
           Location:
         </Typography>
       </Grid>
@@ -239,7 +281,35 @@ const Location = ({
           </Fragment>
         ) : (
           <Typography variant='body1' className={classes.detailStyle}>
-            {spaceDetails}
+            {[
+              locationState.building.number &&
+                `${locationState.building.number} - `,
+              `${locationState.building.name}`,
+              !!locationState.floor && <br key='1' />,
+              !!locationState.floor &&
+                (!!locationState.floor.name
+                  ? `${locationState.floor.name}`
+                  : `Floor ${
+                      locationState.floor.number >= 0
+                        ? locationState.floor.number + 1
+                        : locationState.floor.number
+                    }`),
+              !!locationState.space && <br key='2' />,
+              !!locationState.space &&
+                locationState.space.number &&
+                locationState.space.number,
+              ' ',
+              !!locationState.space &&
+                locationState.space.number &&
+                locationState.space.name &&
+                '- ',
+              !!locationState.space &&
+                locationState.space.name &&
+                locationState.space.name,
+              locationState.location_description && <br key='3' />,
+              locationState.location_description &&
+                locationState.location_description,
+            ]}
           </Typography>
         )}
       </Grid>
@@ -252,6 +322,8 @@ Location.propTypes = {
   workorder: PropTypes.object,
   siteBuidlings: PropTypes.array,
   setTopLocationState: PropTypes.func.isRequired,
+  handleUpdateLocationClick: PropTypes.func,
+  isTechnicianPage: PropTypes.bool,
 };
 
 export default Location;

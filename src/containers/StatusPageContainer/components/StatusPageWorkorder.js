@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 
 import ConfirmCompleted from './ConfirmCompleted';
-import Location from './Location';
+import Location from 'components/Common/Location';
 import RequestDescription from './RequestDescription';
 import {
   StatusRequestDetailGrid1,

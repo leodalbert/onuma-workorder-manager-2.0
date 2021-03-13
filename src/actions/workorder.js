@@ -86,6 +86,7 @@ export const getWorkOrderById = (
     } else {
       dispatch(getFloorId(buildingInfo.buildingId, studioId));
     }
+    dispatch(getAllSpaces(buildingInfo.siteId, studioId));
     dispatch({ type: SET_SPACE_INFO, payload: buildingInfo });
 
     dispatch(getWorkorderFiles(workorderId, studioId));
@@ -167,6 +168,49 @@ export const updateWorkorder = (studioId, workorderId, updatedObj) => async (
     dispatch({ type: SET_SPACE_INFO, payload: buildingInfo });
 
     dispatch({ type: GET_WORKORDER, payload: workorder });
+  } catch (err) {
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// patch workorker location
+export const updateWorkorderLocation = (
+  studioId,
+  workorderId,
+  updatedObj
+) => async (dispatch) => {
+  try {
+    const res = await network.updateStatusPageWorkorder(
+      studioId,
+      workorderId,
+      updatedObj
+    );
+    if (updatedObj.space) {
+      dispatch(getSpaceComponents(updatedObj.space, studioId));
+    }
+    const workorder = res.data;
+    // create object with buidling info if availible
+    let buildingInfo = {};
+    buildingInfo.siteId = workorder.building.site;
+    buildingInfo.buildingId = workorder.building.id;
+    buildingInfo.buildingName = workorder.building.name;
+
+    if (workorder.space) {
+      buildingInfo.spaceId = workorder.space.id;
+      buildingInfo.spaceName = workorder.space.name;
+      buildingInfo.spaceNumber = workorder.space.number;
+    }
+    if (workorder.location_description) {
+      buildingInfo.location_description = workorder.location_description;
+    }
+    if (workorder.floor) {
+      buildingInfo.floorId = workorder.floor.id;
+      buildingInfo.floorName = workorder.floor.name;
+      buildingInfo.floorNumber = workorder.floor.number;
+    } else {
+      dispatch(getFloorId(buildingInfo.buildingId, studioId));
+    }
+    dispatch({ type: SET_SPACE_INFO, payload: buildingInfo });
   } catch (err) {
     dispatch({ type: LOGIN_FAIL });
   }
