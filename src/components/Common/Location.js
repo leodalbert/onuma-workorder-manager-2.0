@@ -165,7 +165,7 @@ const Location = ({
         <Typography
           variant='subtitle1'
           className={edit ? classes.labelSelectStyle : classes.labelStyle}>
-          {isTechnicianPage && (
+          {isTechnicianPage && siteBuidlings.length > 0 && (
             <IconButton
               className={classes.button}
               aria-label='edit-location'
